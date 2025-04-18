@@ -1,11 +1,16 @@
-sealed class CubitState {}
+sealed class CubitState<S>{
+  final S? state;
 
-class NormalState extends CubitState {}
+  CubitState({this.state});
+}
+
+class NormalState<S> extends CubitState<S> {
+}
 
 class LoadingState extends CubitState {}
 
 class ErrorState extends CubitState {
   final String message;
 
-  ErrorState({required String this.message});
+  ErrorState({required this.message});
 }
