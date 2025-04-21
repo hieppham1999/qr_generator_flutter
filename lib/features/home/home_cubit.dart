@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import '../app_state.dart';
+import '../../data/app_state.dart';
 
 @singleton
 class HomeCubit extends Cubit<CubitState> {
-  HomeCubit() : super(NormalState());
+  HomeCubit() : super(NormalState(null));
 
   String qrData = '';
 
@@ -14,7 +14,10 @@ class HomeCubit extends Cubit<CubitState> {
   }
 
   void updateQrData(String data) {
-    qrData = data;
-    emit(NormalState());
+    if (data.isNotEmpty) {
+      qrData = data;
+      emit(NormalState(null));
+    }
+    emit(ErrorState(message: "Not a valid text"));
   }
 }
