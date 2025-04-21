@@ -1,6 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qr_generator_flutter/features/app_state.dart';
+import 'package:get_it/get_it.dart';
+import 'package:qr_generator_flutter/utils/app_logger.dart';
+import 'package:qr_generator_flutter/data/app_state.dart';
 
 typedef ChildStateBuilder =
     Widget Function(BuildContext context, CubitState state);
@@ -26,8 +30,10 @@ class _BlocStateBuilderState extends State<BlocStateBuilder> {
     return BlocConsumer(
       bloc: widget.cubit,
       listener:
-          (context, state) => {
-            // TODO: add listener
+          (context, state)  {
+            final logger = GetIt.I<AppLogger>();
+            logger.d("${widget.cubit.runtimeType}: New state -> ${state.toString()}");
+
           },
       builder: widget.builder,
       buildWhen: (oldState, newState) {

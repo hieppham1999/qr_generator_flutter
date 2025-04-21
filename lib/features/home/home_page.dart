@@ -13,8 +13,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeCubit = getIt.get<HomeCubit>();
-
     return Scaffold(
+      appBar: AppBar(title: Text("HomePage"),),
       body: BlocStateBuilder(
         cubit: homeCubit,
         builder: (_,_) => Column(
@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
 
             ElevatedButton(
               onPressed: () => homeCubit.updateQrData(textEditingController.text),
-              child: Text(AppLocalizations.of(context)  !.btnGenerate),
+              child: Text(AppLocalizations.of(context)!.btnGenerate),
             ),
           ],
         ),

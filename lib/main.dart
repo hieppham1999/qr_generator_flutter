@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:qr_generator_flutter/core/theme.dart';
+import 'package:qr_generator_flutter/core/typography.dart';
 import 'package:qr_generator_flutter/di/injection.dart';
 import 'package:qr_generator_flutter/features/app_setting/app_setting_cubit.dart';
 import 'package:qr_generator_flutter/features/home/home_page.dart';
@@ -21,21 +23,22 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final homeCubit = getIt.get<SettingsCubit>();
+  final settingCubit = getIt.get<SettingsCubit>();
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocStateBuilder(
-      cubit: homeCubit,
+      cubit: settingCubit,
 
       builder: (_,_) => MaterialApp(
         title: 'QR Generator Flutter',
+
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        ),
-        locale: Locale('en'),
+        themeMode: settingCubit.state.data?.themeMode,
+        theme: AppTheme.light(seedColor: settingCubit.state.data?.colorSchemeSeed),
+        darkTheme: AppTheme.dark(seedColor: settingCubit.state.data?.colorSchemeSeed),
+        locale: settingCubit.state.data?.locale,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         home: HomePage(),
