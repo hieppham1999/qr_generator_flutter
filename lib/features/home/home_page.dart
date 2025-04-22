@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_generator_flutter/features/home/home_cubit.dart';
 import 'package:qr_generator_flutter/utils/functions.dart';
@@ -28,15 +29,50 @@ class HomePage extends StatelessWidget {
             return Column(
             children: [
               TextField(controller: textEditingController,),
-
-              if (homeCubit.qrData.isNotEmpty) QrImageView(
-                data: homeCubit.qrData,
-                version: QrVersions.auto,
-                eyeStyle: QrEyeStyle(eyeShape: QrEyeShape. square, color: defaultQrColor),
-                dataModuleStyle: QrDataModuleStyle(dataModuleShape: QrDataModuleShape. square, color: defaultQrColor),
-                size: 200.0,
-              ),
-              if (homeCubit.qrData.isNotEmpty) Text(homeCubit.qrData),
+              if (homeCubit.qrData.content?.isNotEmpty ?? false) Builder(
+                  builder: (context) =>
+                      Column(
+                        children: [
+                          TextButton(onPressed: () async {
+                            var pickedColor = defaultQrColor;
+                            await showDialog(
+                              context: context,
+                              builder: (context) =>
+                                  AlertDialog(
+                                    title: const Text('Pick a color!'),
+                                    content: SingleChildScrollView(
+                                      child: ColorPicker(
+                                        pickerColor: defaultQrColor,
+                                        onColorChanged: (color) {
+                                          pickedColor = color;
+                                        },
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      ElevatedButton(
+                                        child: const Text('Got it'),
+                                        onPressed: () {
+                                          homeCubit.updateQrColor(pickedColor);
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                            );
+                          }, child: Text("Change Color")),
+                          QrImageView(
+                            data: homeCubit.qrData.content ?? '',
+                            version: QrVersions.auto,
+                            eyeStyle: QrEyeStyle(
+                                eyeShape: QrEyeShape.square,
+                                color: defaultQrColor),
+                            dataModuleStyle: homeCubit.qrData.moduleStyle,
+                            embeddedImageEmitsError: true,
+                            size: 200.0,
+                          ),
+                          Text(homeCubit.qrData.content ?? ''),
+                        ],
+                      )),
 
               ElevatedButton(
                 onPressed: () => homeCubit.updateQrData(textEditingController.text),

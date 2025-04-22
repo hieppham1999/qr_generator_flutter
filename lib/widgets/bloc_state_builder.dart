@@ -27,7 +27,7 @@ class BlocStateBuilder extends StatefulWidget {
 class _BlocStateBuilderState extends State<BlocStateBuilder> {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer(
+    return BlocConsumer<Cubit<CubitState>, CubitState>(
       bloc: widget.cubit,
       listener:
           (context, state)  {
@@ -37,7 +37,14 @@ class _BlocStateBuilderState extends State<BlocStateBuilder> {
           },
       builder: widget.builder,
       buildWhen: (oldState, newState) {
-        return true;
+        switch (newState) {
+          case NormalState():
+            return true;
+          case LoadingState():
+            return true;
+          case ErrorState():
+            return true;
+        }
       },
     );
   }
