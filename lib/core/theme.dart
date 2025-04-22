@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_generator_flutter/core/constants.dart';
 import 'package:qr_generator_flutter/core/typography.dart';
 
 class AppTheme {
@@ -6,7 +7,8 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
-      colorSchemeSeed: seedColor ?? Colors.blue,
+      colorSchemeSeed: seedColor ?? AppColors.defaultThemeColor,
+      textTheme: appTextTheme
     );
   }
 
@@ -14,7 +16,8 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
-      colorSchemeSeed: seedColor ?? Colors.blueGrey,
+      colorSchemeSeed: seedColor ?? AppColors.defaultThemeColor,
+      textTheme: appTextTheme
     );
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_generator_flutter/features/home/home_cubit.dart';
+import 'package:qr_generator_flutter/utils/functions.dart';
 import 'package:qr_generator_flutter/widgets/bloc_state_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -15,24 +17,39 @@ class HomePage extends StatelessWidget {
     final homeCubit = getIt.get<HomeCubit>();
     return Scaffold(
       appBar: AppBar(title: Text("HomePage"),),
-      body: BlocStateBuilder(
-        cubit: homeCubit,
-        builder: (_,_) => Column(
-          children: [
-            TextField(controller: textEditingController,),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: BlocStateBuilder(
+          cubit: homeCubit,
+          builder: (_context,_) {
 
-            // QrImageView(
-            //   data: homeCubit.qrData,
-            //   version: QrVersions.auto,
-            //   size: 200.0,
-            // ),
-            Text(homeCubit.qrData),
+            final defaultQrColor = Theme.of(context).scaffoldBackgroundColor.inverted();
 
-            ElevatedButton(
-              onPressed: () => homeCubit.updateQrData(textEditingController.text),
-              child: Text(AppLocalizations.of(context)!.btnGenerate),
-            ),
-          ],
+            return Column(
+            children: [
+              TextField(controller: textEditingController,),
+
+              if (homeCubit.qrData.isNotEmpty) QrImageView(
+                data: homeCubit.qrData,
+                version: QrVersions.auto,
+                eyeStyle: QrEyeStyle(eyeShape: QrEyeShape. square, color: defaultQrColor),
+                dataModuleStyle: QrDataModuleStyle(dataModuleShape: QrDataModuleShape. square, color: defaultQrColor),
+                size: 200.0,
+              ),
+              if (homeCubit.qrData.isNotEmpty) Text(homeCubit.qrData),
+
+              ElevatedButton(
+                onPressed: () => homeCubit.updateQrData(textEditingController.text),
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  textStyle: Theme.of(context).textTheme.labelLarge,
+                  minimumSize: Size.fromHeight(56), // fromHeight use double.infinity as width and 40 is the height
+                ),
+                child: Text(AppLocalizations.of(context)!.btnGenerate),
+              ),
+            ],
+          );
+          },
         ),
       ),
     );

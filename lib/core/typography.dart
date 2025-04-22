@@ -1,3 +1,8 @@
 import 'package:flutter/material.dart';
 
-final TextTheme appTextTheme = TextTheme();
+final TextTheme appTextTheme = TextTheme(
+  labelLarge: TextStyle(
+    fontSize: 16,
+    // height: 24
+  )
+);

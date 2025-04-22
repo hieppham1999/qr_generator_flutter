@@ -17,7 +17,8 @@ class HomeCubit extends Cubit<CubitState> {
     if (data.isNotEmpty) {
       qrData = data;
       emit(NormalState(null));
+    } else {
+      emit(ErrorState(message: "Not a valid text"));
     }
-    emit(ErrorState(message: "Not a valid text"));
   }
 }
