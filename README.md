@@ -18,3 +18,4 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Build note
 - flutter packages pub run build_runner build 
+- flutter gen-l10n

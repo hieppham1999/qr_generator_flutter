@@ -39,3 +39,12 @@ extension QrDataModuleStyleExtension on QrDataModuleStyle {
     );
   }
 }
+
+extension QrDataEyeStyleExtension on QrEyeStyle {
+  QrEyeStyle copyWith({Color? color, QrEyeShape? shape}) {
+    return QrEyeStyle(
+      color: color ?? this.color,
+      eyeShape: shape ?? eyeShape,
+    );
+  }
+}

@@ -24,9 +24,13 @@ class HomeCubit extends Cubit<CubitState> {
     }
   }
 
-  void updateQrColor(Color color) {
+  void updateQrModuleColor(Color color) {
     qrData = qrData.copyWith(moduleStyle: qrData.moduleStyle.copyWith(color: color));
-    // qrData = qrData.copyWith(moduleStyle: qrData.moduleStyle.copyWith(color: color));
+    emit(NormalState());
+  }
+
+  void updateQrEyeColor(Color color) {
+    qrData = qrData.copyWith(eyeStyle: qrData.eyeStyle.copyWith(color: color));
     emit(NormalState());
   }
 }
