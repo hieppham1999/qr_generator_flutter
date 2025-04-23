@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qr_generator_flutter/core/constants.dart';
+import 'package:qr_generator_flutter/core/colors.dart';
 import 'package:qr_generator_flutter/core/typography.dart';
 
 class AppTheme {

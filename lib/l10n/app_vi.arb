@@ -1,4 +1,6 @@
 {
   "appName": "QR Generator",
-  "btnGenerate": "Tạo"
+  "btnGenerate": "Tạo",
+  "titleColorPicker": "Chọn màu",
+  "buttonSelect": "Chọn"
 }
