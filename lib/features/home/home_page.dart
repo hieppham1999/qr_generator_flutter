@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_generator_flutter/features/home/home_cubit.dart';
+import 'package:qr_generator_flutter/navigation/app_navigator.dart';
+import 'package:qr_generator_flutter/navigation/app_routes.dart';
 import 'package:qr_generator_flutter/widgets/bloc_state_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -16,7 +18,11 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeCubit = getIt.get<HomeCubit>();
     return Scaffold(
-      appBar: AppBar(title: Text("HomePage")),
+      appBar: AppBar(title: Text("HomePage"),actions: [
+        IconButton(onPressed: () {
+          NavController.pushNamed(AppRoutes.settings);
+        }, icon: Icon(Icons.settings))
+      ],),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BlocStateBuilder(

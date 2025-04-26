@@ -5,6 +5,9 @@ import 'package:qr_generator_flutter/core/typography.dart';
 import 'package:qr_generator_flutter/di/injection.dart';
 import 'package:qr_generator_flutter/features/app_setting/app_setting_cubit.dart';
 import 'package:qr_generator_flutter/features/home/home_page.dart';
+import 'package:qr_generator_flutter/navigation/app_navigator.dart';
+import 'package:qr_generator_flutter/navigation/app_router.dart';
+import 'package:qr_generator_flutter/navigation/app_routes.dart';
 import 'package:qr_generator_flutter/widgets/bloc_state_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -33,7 +36,8 @@ class _MyAppState extends State<MyApp> {
 
       builder: (_,_) => MaterialApp(
         title: 'QR Generator Flutter',
-
+        navigatorKey: NavigatorKey.key,
+        onGenerateRoute: AppRouter.onGenerateRoute,
         debugShowCheckedModeBanner: false,
         themeMode: settingCubit.appSettings.themeMode,
         theme: AppTheme.light(seedColor: settingCubit.appSettings.colorSchemeSeed),
@@ -41,7 +45,6 @@ class _MyAppState extends State<MyApp> {
         locale: settingCubit.appSettings.locale,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        home: HomePage(),
       ),
     );
   }

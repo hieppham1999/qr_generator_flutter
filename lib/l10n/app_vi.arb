@@ -2,5 +2,6 @@
   "appName": "QR Generator",
   "btnGenerate": "Tạo",
   "titleColorPicker": "Chọn màu",
-  "buttonSelect": "Chọn"
+  "buttonSelect": "Chọn",
+  "buttonCancel": "Huỷ"
 }
