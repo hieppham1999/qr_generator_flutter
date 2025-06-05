@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:qr_generator_flutter/core/theme.dart';
-import 'package:qr_generator_flutter/core/typography.dart';
 import 'package:qr_generator_flutter/di/injection.dart';
 import 'package:qr_generator_flutter/features/app_setting/app_setting_cubit.dart';
-import 'package:qr_generator_flutter/features/home/home_page.dart';
 import 'package:qr_generator_flutter/navigation/app_navigator.dart';
 import 'package:qr_generator_flutter/navigation/app_router.dart';
-import 'package:qr_generator_flutter/navigation/app_routes.dart';
-import 'package:qr_generator_flutter/widgets/bloc_state_builder.dart';
+import 'package:qr_generator_flutter/base/bloc_state_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 

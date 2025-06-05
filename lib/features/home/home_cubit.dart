@@ -1,13 +1,15 @@
 import 'dart:ui';
 
-import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:qr_generator_flutter/base/base_cubit.dart';
 import 'package:qr_generator_flutter/data/qr_model/qr_model.dart';
-import 'package:qr_generator_flutter/data/app_state.dart';
+import 'package:qr_generator_flutter/features/home/home_state.dart';
 
 @singleton
-class HomeCubit extends Cubit<CubitState> {
-  HomeCubit() : super(NormalState());
+class HomeCubit extends BaseCubit<HomeState> {
+  HomeCubit() : super.loading(HomeState());
+
+  // HomeState get _state => state as HomeState;
 
   QrModel qrData = QrModel();
 
@@ -18,19 +20,23 @@ class HomeCubit extends Cubit<CubitState> {
   void updateQrData(String data) {
     if (data.isNotEmpty) {
       qrData = qrData.copyWith(content: data);
-      emit(NormalState());
+      emitNormal();
     } else {
-      emit(ErrorState(message: "Not a valid text"));
+      emitError("Not a valid text");
     }
   }
 
   void updateQrModuleColor(Color color) {
     qrData = qrData.copyWith(moduleStyle: qrData.moduleStyle.copyWith(color: color));
-    emit(NormalState());
+    emitNormal();
   }
 
   void updateQrEyeColor(Color color) {
     qrData = qrData.copyWith(eyeStyle: qrData.eyeStyle.copyWith(color: color));
-    emit(NormalState());
+    emitNormal();
+  }
+
+  void updateTabIndex(int index) {
+    emitNormal(currentData.copyWith(pageIndex: index));
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:qr_generator_flutter/navigation/app_routes.dart';
 
 class NavigatorKey {
   static final key = GlobalKey<NavigatorState>();
@@ -8,9 +9,9 @@ class NavigatorKey {
 
 class NavController {
   static Future<T?>? pushNamed<T extends Object?>(
-      String routeName, {
+      AppRoutes route, {
         Map<String, dynamic>? arguments,
-      }) => NavigatorKey.key.currentState?.pushNamed(routeName, arguments: arguments);
+      }) => NavigatorKey.key.currentState?.pushNamed(route.path, arguments: route);
 
   static Future<T?>? pushReplacementNamed<T extends Object?>(
       String routeName, {
