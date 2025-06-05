@@ -1,7 +1,8 @@
-    {
-      "appName": "QR Generator",
-      "btnGenerate": "Generate",
-      "titleColorPicker": "Pick a color!",
-      "buttonSelect": "Select",
-      "buttonCancel": "Cancel"
-    }
+{
+  "appName": "QR Generator",
+  "btnGenerate": "Generate",
+  "titleColorPicker": "Pick a color!",
+  "buttonSelect": "Select",
+  "buttonCancel": "Cancel",
+  "homeTab": "Home"
+}

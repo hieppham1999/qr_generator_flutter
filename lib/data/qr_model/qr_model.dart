@@ -17,7 +17,7 @@ class QrModel with _$QrModel {
   @override
   final QrDataModuleStyle moduleStyle;
 
-  QrModel({
+  const QrModel({
     this.content,
     this.versions = -1,
     this.moduleStyle = const QrDataModuleStyle(

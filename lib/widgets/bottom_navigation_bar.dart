@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_generator_flutter/core/languages.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
   const AppBottomNavigationBar({
@@ -18,10 +19,15 @@ class AppBottomNavigationBar extends StatelessWidget {
       onTap: onItemTapped,
       type: BottomNavigationBarType.fixed,
       // Ensures all items are visible and labels shown
-      selectedItemColor: Colors.amber[800], // Optional: Color for selected item
-      unselectedItemColor: Colors.grey, // Optional: Color for unselected items
+      selectedItemColor: Colors.amber[800],
+      // Optional: Color for selected item
+      unselectedItemColor: Colors.grey,
+      // Optional: Color for unselected items
       items: <BottomNavigationBarItem>[
-        const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: Languages.translate.homeTab,
+        ),
         // This is our "QR Scan" button in the middle.
         // It doesn't change _currentIndex in the same way if it's purely an action button.
         BottomNavigationBarItem(
