@@ -46,7 +46,7 @@ abstract mixin class $QrModelCopyWith<$Res>  {
   factory $QrModelCopyWith(QrModel value, $Res Function(QrModel) _then) = _$QrModelCopyWithImpl;
 @useResult
 $Res call({
- String? content, int versions, QrDataModuleStyle moduleStyle, QrEyeStyle eyeStyle
+ String? content, int versions, QrEyeStyle eyeStyle, QrDataModuleStyle moduleStyle
 });
 
 
@@ -63,17 +63,89 @@ class _$QrModelCopyWithImpl<$Res>
 
 /// Create a copy of QrModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? content = freezed,Object? versions = null,Object? moduleStyle = null,Object? eyeStyle = null,}) {
-  return _then(QrModel(
+@pragma('vm:prefer-inline') @override $Res call({Object? content = freezed,Object? versions = null,Object? eyeStyle = null,Object? moduleStyle = null,}) {
+  return _then(_self.copyWith(
 content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String?,versions: null == versions ? _self.versions : versions // ignore: cast_nullable_to_non_nullable
-as int,moduleStyle: null == moduleStyle ? _self.moduleStyle : moduleStyle // ignore: cast_nullable_to_non_nullable
-as QrDataModuleStyle,eyeStyle: null == eyeStyle ? _self.eyeStyle : eyeStyle // ignore: cast_nullable_to_non_nullable
-as QrEyeStyle,
+as int,eyeStyle: null == eyeStyle ? _self.eyeStyle : eyeStyle // ignore: cast_nullable_to_non_nullable
+as QrEyeStyle,moduleStyle: null == moduleStyle ? _self.moduleStyle : moduleStyle // ignore: cast_nullable_to_non_nullable
+as QrDataModuleStyle,
   ));
 }
 
 }
 
+
+/// @nodoc
+
+
+class _QrModel implements QrModel {
+  const _QrModel({this.content, this.versions = -1, this.eyeStyle = _defaultEyeStyle, this.moduleStyle = _defaultModuleStyle});
+  
+
+@override final  String? content;
+@override@JsonKey() final  int versions;
+@override@JsonKey() final  QrEyeStyle eyeStyle;
+@override@JsonKey() final  QrDataModuleStyle moduleStyle;
+
+/// Create a copy of QrModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$QrModelCopyWith<_QrModel> get copyWith => __$QrModelCopyWithImpl<_QrModel>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _QrModel&&(identical(other.content, content) || other.content == content)&&(identical(other.versions, versions) || other.versions == versions)&&(identical(other.eyeStyle, eyeStyle) || other.eyeStyle == eyeStyle)&&(identical(other.moduleStyle, moduleStyle) || other.moduleStyle == moduleStyle));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,content,versions,eyeStyle,moduleStyle);
+
+@override
+String toString() {
+  return 'QrModel(content: $content, versions: $versions, eyeStyle: $eyeStyle, moduleStyle: $moduleStyle)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$QrModelCopyWith<$Res> implements $QrModelCopyWith<$Res> {
+  factory _$QrModelCopyWith(_QrModel value, $Res Function(_QrModel) _then) = __$QrModelCopyWithImpl;
+@override @useResult
+$Res call({
+ String? content, int versions, QrEyeStyle eyeStyle, QrDataModuleStyle moduleStyle
+});
+
+
+
+
+}
+/// @nodoc
+class __$QrModelCopyWithImpl<$Res>
+    implements _$QrModelCopyWith<$Res> {
+  __$QrModelCopyWithImpl(this._self, this._then);
+
+  final _QrModel _self;
+  final $Res Function(_QrModel) _then;
+
+/// Create a copy of QrModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? content = freezed,Object? versions = null,Object? eyeStyle = null,Object? moduleStyle = null,}) {
+  return _then(_QrModel(
+content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as String?,versions: null == versions ? _self.versions : versions // ignore: cast_nullable_to_non_nullable
+as int,eyeStyle: null == eyeStyle ? _self.eyeStyle : eyeStyle // ignore: cast_nullable_to_non_nullable
+as QrEyeStyle,moduleStyle: null == moduleStyle ? _self.moduleStyle : moduleStyle // ignore: cast_nullable_to_non_nullable
+as QrDataModuleStyle,
+  ));
+}
+
+
+}
 
 // dart format on

@@ -60,7 +60,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildQrImage() {
-    return Center(child: Text('Home Tab'));
+    return Center(
+        child: ElevatedButton(onPressed: () {
+          NavController.pushNamed(QrCreateRoute());
+        }, child: Text("Create QR")));
   }
 
   Widget _buildSettings() {

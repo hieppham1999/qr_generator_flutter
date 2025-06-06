@@ -6,29 +6,34 @@ import 'package:qr_generator_flutter/core/colors.dart';
 
 part 'qr_model.freezed.dart';
 
-@freezed
-class QrModel with _$QrModel {
-  @override
-  final String? content;
-  @override
-  final int versions;
-  @override
-  final QrEyeStyle eyeStyle;
-  @override
-  final QrDataModuleStyle moduleStyle;
+const QrDataModuleStyle _defaultModuleStyle = QrDataModuleStyle(
+  dataModuleShape: QrDataModuleShape.square,
+  color: AppColors.defaultQrColor,
+);
 
-  const QrModel({
-    this.content,
-    this.versions = -1,
-    this.moduleStyle = const QrDataModuleStyle(
-      dataModuleShape: QrDataModuleShape.square,
-      color: AppColors.defaultQrColor,
-    ),
-    this.eyeStyle = const QrEyeStyle(
-      eyeShape: QrEyeShape.square,
-      color: AppColors.defaultQrColor,
-    ),
-  });
+const QrEyeStyle _defaultEyeStyle = QrEyeStyle(
+  eyeShape: QrEyeShape.square,
+  color: AppColors.defaultQrColor,
+);
+
+@freezed
+abstract class QrModel with _$QrModel {
+  const factory QrModel({
+    String? content,
+    @Default(-1) int versions,
+    @Default(_defaultEyeStyle) QrEyeStyle eyeStyle,
+    @Default(_defaultModuleStyle) QrDataModuleStyle moduleStyle,
+  }) = _QrModel;
+
+  factory QrModel.copyWithStyle(QrModel model, QrModel styleFrom) => model.copyWith(
+    eyeStyle: styleFrom.eyeStyle,
+    moduleStyle: styleFrom.moduleStyle,
+  );
+
+  factory QrModel.defaultStyle(QrModel model) => model.copyWith(
+    eyeStyle: _defaultEyeStyle,
+    moduleStyle: _defaultModuleStyle,
+  );
 }
 
 extension QrDataModuleStyleExtension on QrDataModuleStyle {

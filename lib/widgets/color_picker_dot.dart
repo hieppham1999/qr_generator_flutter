@@ -7,10 +7,12 @@ class ColorPickerDot extends StatelessWidget {
   const ColorPickerDot({
     super.key,
     this.selectedColor,
+    this.dotSize = 20,
     required this.onChanged,
   });
 
   final Color? selectedColor;
+  final double dotSize;
   final Function(Color color) onChanged;
 
   @override
@@ -23,8 +25,8 @@ class ColorPickerDot extends StatelessWidget {
         }
       },
       child: Container(
-        height: 30,
-        width: 30,
+        height: dotSize,
+        width: dotSize,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: selectedColor,
