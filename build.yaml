@@ -1,0 +1,10 @@
+targets:
+  $default:
+    builders:
+      injectable_generator:
+        options:
+          auto_register: true
+          environments:
+            dev:
+            prod:
+            test:

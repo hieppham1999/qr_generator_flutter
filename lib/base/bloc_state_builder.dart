@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:qr_generator_flutter/utils/app_logger.dart';
 import 'package:qr_generator_flutter/base/app_state.dart';
 
@@ -26,14 +25,13 @@ class BlocStateBuilder<T> extends StatefulWidget {
 }
 
 class _BlocStateBuilderState<T> extends State<BlocStateBuilder<T>> {
-  final logger = GetIt.I<AppLogger>();
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<Cubit<CubitState>, CubitState>(
       bloc: widget.cubit,
       listener: (context, state) {
-        logger.d(
+        appLogger.d(
           "${widget.cubit.runtimeType}: New state -> ${state.toString()}",
         );
       },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_generator_flutter/data/qr_model/qr_model.dart';
+import 'package:qr_generator_flutter/widgets/app_tile.dart';
 import 'package:qr_generator_flutter/widgets/color_picker_dot.dart';
 
 class QrCustomization extends StatefulWidget {
@@ -23,38 +24,51 @@ class _QrCustomizationState extends State<QrCustomization> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Text('Qr module color:'),
-            ColorPickerDot(
-              selectedColor: _current.moduleStyle.color,
-              onChanged: (color) {
-                setState(() {
-                  _current = _current.copyWith(
-                    moduleStyle: _current.moduleStyle.copyWith(color: color),
-                  );
-                });
-                widget.onChanged(_current);
-              },
-            ),
-          ],
+        AppTile(
+          label: 'Qr module color:',
+          trailing: ColorPickerDot(
+            selectedColor: _current.moduleStyle.color,
+            onChanged: (color) {
+              setState(() {
+                _current = _current.copyWith(
+                  moduleStyle: _current.moduleStyle.copyWith(color: color),
+                );
+              });
+              widget.onChanged(_current);
+            },
+          ),
         ),
-        Row(
-          children: [
-            Text('Qr eye color:'),
-            ColorPickerDot(
-              selectedColor: _current.eyeStyle.color,
-              onChanged: (color) {
-                setState(() {
-                  _current = _current.copyWith(
-                    eyeStyle: _current.eyeStyle.copyWith(color: color),
-                  );
-                });
+        SizedBox(height: 6,),
 
-                widget.onChanged(_current);
-              },
-            ),
-          ],
+        AppTile(
+          label: 'Qr eye color:',
+          trailing: ColorPickerDot(
+            selectedColor: _current.eyeStyle.color,
+            onChanged: (color) {
+              setState(() {
+                _current = _current.copyWith(
+                  eyeStyle: _current.eyeStyle.copyWith(color: color),
+                );
+              });
+
+              widget.onChanged(_current);
+            },
+          ),
+        ),
+        SizedBox(height: 6,),
+
+        AppTile(
+          label: 'Background color:',
+          trailing: ColorPickerDot(
+            selectedColor: _current.backgroundColor,
+            onChanged: (color) {
+              setState(() {
+                _current = _current.copyWith(backgroundColor: color);
+              });
+
+              widget.onChanged(_current);
+            },
+          ),
         ),
       ],
     );

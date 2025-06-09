@@ -23,6 +23,9 @@ class AppDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius:  BorderRadius.circular(16)
+      ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -30,35 +33,41 @@ class AppDialog extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Text(
-                title ?? '',
-                style: Theme.of(context).textTheme.titleMedium,
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
+              child: Center(
+                child: Text(
+                  title ?? '',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
               ),
             ),
             body ?? SizedBox.shrink(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                /// Positive
-                ElevatedButton(
-                  child: Text(positiveText),
-                  onPressed: () {
-                    onPositive?.call();
-                    Navigator.of(context).pop(returnResultValue?.call());
-                  },
-                ),
-                SizedBox(width: 8,),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  /// Positive
+                  ElevatedButton(
+                    child: Text(positiveText),
+                    onPressed: () {
+                      onPositive?.call();
+                      Navigator.of(context).pop(returnResultValue?.call());
+                    },
+                  ),
+                  SizedBox(width: 8,),
 
-                /// Negative
-                ElevatedButton(
-                  child: Text(negativeText),
-                  onPressed: () {
-                    onNegative?.call();
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
+                  /// Negative
+                  ElevatedButton(
+                    child: Text(negativeText),
+                    onPressed: () {
+                      onNegative?.call();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
             ),
           ],
         ),

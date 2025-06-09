@@ -14,18 +14,18 @@ class NavController {
       }) => NavigatorKey.key.currentState?.pushNamed(route.path, arguments: route);
 
   static Future<T?>? pushReplacementNamed<T extends Object?>(
-      String routeName, {
+      AppRoutes route, {
         Map<String, dynamic>? arguments,
       }) =>
       NavigatorKey.key.currentState
-          ?.pushReplacementNamed(routeName, arguments: arguments);
+          ?.pushReplacementNamed(route.path, arguments: route);
 
   static Future<T?>? popAndPushNamed<T extends Object?>(
-      String routeName, {
+      AppRoutes route, {
         Map<String, dynamic>? arguments,
       }) =>
       NavigatorKey.key.currentState
-          ?.popAndPushNamed(routeName, arguments: arguments);
+          ?.popAndPushNamed(route.path, arguments: route);
 
   static pushNamedAndRemoveUntil(String newRouteName,
       {String? heldRouteName, Map<String, dynamic>? arguments}) {

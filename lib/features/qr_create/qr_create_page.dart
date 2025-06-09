@@ -49,20 +49,21 @@ class _QrCreatePageState extends State<QrCreatePage> {
                             builder:
                                 (context) => Column(
                               children: [
-                                Text('QR Preview'),
-
-
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: Text('Preview', style: TextTheme.of(context).titleLarge,),
+                                ),
 
                                 Tooltip(
                                   message: qrModel.content ?? 'QR',
                                   child: QrImageView(
                                     data: qrModel.content ?? '',
-                                    version: QrVersions.auto,
+                                    version: qrModel.version,
                                     eyeStyle: qrModel.eyeStyle,
                                     dataModuleStyle: qrModel.moduleStyle,
                                     embeddedImageEmitsError: true,
-                                    size: 200.0,
-                                    backgroundColor: Colors.blueAccent,
+                                    size: MediaQuery.of(context).size.width * 0.7,
+                                    backgroundColor: qrModel.backgroundColor,
                                   ),
                                 ),
                                 Row(
@@ -178,6 +179,7 @@ class _QrCreatePageState extends State<QrCreatePage> {
       builder:
           (_) =>
           AppDialog(
+            title: "Customization",
             body: QrCustomization(initModel: _current, onChanged: (model) {
               _current = model;
             },),

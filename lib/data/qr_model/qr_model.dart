@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_generator_flutter/core/colors.dart';
@@ -23,11 +24,12 @@ abstract class QrModel with _$QrModel {
     @Default(-1) int versions,
     @Default(_defaultEyeStyle) QrEyeStyle eyeStyle,
     @Default(_defaultModuleStyle) QrDataModuleStyle moduleStyle,
+    @Default(Colors.black) Color backgroundColor,
+    @Default(-1) int version,
   }) = _QrModel;
 
-  factory QrModel.copyWithStyle(QrModel model, QrModel styleFrom) => model.copyWith(
-    eyeStyle: styleFrom.eyeStyle,
-    moduleStyle: styleFrom.moduleStyle,
+  factory QrModel.copyWithStyle(QrModel model, QrModel styleFrom) => styleFrom.copyWith(
+    content: model.content
   );
 
   factory QrModel.defaultStyle(QrModel model) => model.copyWith(

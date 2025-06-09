@@ -16,5 +16,7 @@ class QrScanRoute extends AppRoutes {
 }
 
 class QrCreateRoute extends AppRoutes {
-  const QrCreateRoute() : super(path: '/qr-create');
+  final String? qrContent;
+
+  const QrCreateRoute({this.qrContent}) : super(path: '/qr-create');
 }
