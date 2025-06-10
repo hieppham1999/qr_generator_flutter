@@ -6,8 +6,8 @@ import 'package:qr_generator_flutter/base/app_state.dart';
 typedef ChildStateBuilder<T> = Widget Function(BuildContext context, T state);
 
 /// A BlocConsumer wrapper
-class BlocStateBuilder<T> extends StatefulWidget {
-  const BlocStateBuilder({
+class CubitStateBuilder<T> extends StatefulWidget {
+  const CubitStateBuilder({
     super.key,
     required this.builder,
     required this.cubit,
@@ -21,10 +21,10 @@ class BlocStateBuilder<T> extends StatefulWidget {
   final ChildStateBuilder<T>? errorBuilder;
 
   @override
-  State<BlocStateBuilder<T>> createState() => _BlocStateBuilderState<T>();
+  State<CubitStateBuilder<T>> createState() => _CubitStateBuilderState<T>();
 }
 
-class _BlocStateBuilderState<T> extends State<BlocStateBuilder<T>> {
+class _CubitStateBuilderState<T> extends State<CubitStateBuilder<T>> {
 
   @override
   Widget build(BuildContext context) {

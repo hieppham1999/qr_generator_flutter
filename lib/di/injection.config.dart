@@ -18,6 +18,8 @@ import 'package:qr_generator_flutter/features/app_setting/app_setting_cubit.dart
 import 'package:qr_generator_flutter/features/home/home_cubit.dart' as _i656;
 import 'package:qr_generator_flutter/features/qr_create/qr_create_cubit.dart'
     as _i593;
+import 'package:qr_generator_flutter/features/scan_qr/qr_scan_cubit.dart'
+    as _i1045;
 import 'package:qr_generator_flutter/utils/app_logger.dart' as _i183;
 
 const String _dev = 'dev';
@@ -32,6 +34,7 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final loggerModule = _$LoggerModule();
     gh.factory<_i593.QrCreateCubit>(() => _i593.QrCreateCubit());
+    gh.factory<_i1045.QrScanCubit>(() => _i1045.QrScanCubit());
     gh.singleton<_i656.HomeCubit>(() => _i656.HomeCubit());
     gh.singleton<_i659.SettingsCubit>(() => _i659.SettingsCubit());
     gh.lazySingleton<_i974.Logger>(

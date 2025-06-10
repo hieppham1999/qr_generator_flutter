@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
 
 
-    return BlocStateBuilder<HomeState>(
+    return CubitStateBuilder<HomeState>(
       cubit: homeCubit,
       builder:
           (_, state) {

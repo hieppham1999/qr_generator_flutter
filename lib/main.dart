@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocStateBuilder(
+    return CubitStateBuilder(
       cubit: settingCubit,
 
       builder: (_,_) => MaterialApp(

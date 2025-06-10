@@ -31,7 +31,7 @@ class _QrCreatePageState extends State<QrCreatePage> {
       appBar: AppBar(title: Text("QR Create")),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: BlocStateBuilder<QrCreateState>(
+        child: CubitStateBuilder<QrCreateState>(
           cubit: cubit,
           builder: (_, state) {
             final qrModel = state.qrModel;
