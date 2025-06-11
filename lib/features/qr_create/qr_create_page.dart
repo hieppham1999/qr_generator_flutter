@@ -24,103 +24,110 @@ class _QrCreatePageState extends State<QrCreatePage> {
       TextEditingController(text: widget.qrContent);
 
   bool isContentEditable = true;
+  late bool isQrShow = widget.qrContent?.isNotEmpty ?? false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("QR Create")),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(12.0),
         child: CubitStateBuilder<QrCreateState>(
           cubit: cubit,
           builder: (_, state) {
             final qrModel = state.qrModel;
 
-            return Column(
-              children: [
-                _buildTextField(),
+            return AnimatedContainer(
+              duration: const Duration(milliseconds: 400),
+              curve: Curves.easeInOut,
+              onEnd: () {
+                setState(() {
+                  isQrShow = true;
+                });
+              },
+              alignment:
+                  qrModel.content?.isNotEmpty ?? false
+                      ? Alignment.topCenter
+                      : Alignment.center,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildTextField(),
 
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        if (qrModel.content?.isNotEmpty ?? false)
-                          Builder(
-                            builder:
-                                (context) => Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 8.0,
-                                      ),
-                                      child: Text(
-                                        'Preview',
-                                        style: TextTheme.of(context).titleLarge,
-                                      ),
-                                    ),
+                  if (isQrShow)
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 8.0,
+                              ),
+                              child: Text(
+                                'Preview',
+                                style: TextTheme.of(context).titleLarge,
+                              ),
+                            ),
 
-                                    Tooltip(
-                                      message: qrModel.content ?? 'QR',
-                                      child: QrImageView(
-                                        data: qrModel.content ?? '',
-                                        version: qrModel.version,
-                                        eyeStyle: qrModel.eyeStyle,
-                                        dataModuleStyle: qrModel.moduleStyle,
-                                        embeddedImageEmitsError: true,
-                                        size:
-                                            MediaQuery.of(context).size.width *
-                                            0.7,
-                                        backgroundColor:
-                                            qrModel.backgroundColor,
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Flexible(
-                                          child: ElevatedButton(
-                                            onPressed: () async {
-                                              final customized =
-                                                  await customizeQr(qrModel);
-                                              if (customized != null) {
-                                                cubit.updateQrStyle(customized);
-                                              }
-                                            },
-                                            child: Text('Customize...'),
-                                          ),
-                                        ),
-                                        Flexible(
-                                          child: ElevatedButton(
-                                            onPressed:
-                                                () => cubit.resetQrStyle(),
-                                            child: Text('Reset'),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                            Tooltip(
+                              message: qrModel.content ?? 'QR',
+                              child: QrImageView(
+                                data: qrModel.content ?? '',
+                                version: qrModel.version,
+                                eyeStyle: qrModel.eyeStyle,
+                                dataModuleStyle: qrModel.moduleStyle,
+                                embeddedImageEmitsError: true,
+                                size: MediaQuery.of(context).size.width * 0.7,
+                                backgroundColor: qrModel.backgroundColor,
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Flexible(
+                                  child: ElevatedButton(
+                                    onPressed: () async {
+                                      final customized = await customizeQr(
+                                        qrModel,
+                                      );
+                                      if (customized != null) {
+                                        cubit.updateQrStyle(customized);
+                                      }
+                                    },
+                                    child: Text('Customize...'),
+                                  ),
                                 ),
-                          ),
-                      ],
+                                Flexible(
+                                  child: ElevatedButton(
+                                    onPressed: () => cubit.resetQrStyle(),
+                                    child: Text('Reset'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                ),
 
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+                  if (isQrShow)
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        textStyle: Theme.of(context).textTheme.labelLarge,
+                        minimumSize: Size.fromHeight(
+                          56,
+                        ), // fromHeight use double.infinity as width and 40 is the height
+                      ),
+                      child: Text('Save'),
                     ),
-                    textStyle: Theme.of(context).textTheme.labelLarge,
-                    minimumSize: Size.fromHeight(
-                      56,
-                    ), // fromHeight use double.infinity as width and 40 is the height
-                  ),
-                  child: Text('Save'),
-                ),
-              ],
+                ],
+              ),
             );
           },
         ),
@@ -133,29 +140,17 @@ class _QrCreatePageState extends State<QrCreatePage> {
       duration: Duration(milliseconds: 300),
       padding: EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
-        color: isContentEditable ? Colors.white : Colors.grey.shade100,
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isContentEditable ? Colors.blue : Colors.grey,
-          width: 1.5,
+          width: 0.5,
         ),
-        boxShadow: [
-          if (isContentEditable)
-            BoxShadow(
-              color: Colors.blue.withValues(alpha: 0.2),
-              blurRadius: 8,
-              offset: Offset(0, 4),
-            ),
-        ],
       ),
       child: TextField(
         controller: textEditingController,
         readOnly: !isContentEditable,
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          color: isContentEditable ? Colors.black : Colors.grey,
-        ),
+        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
         onSubmitted: (value) => onSubmit(value),
         decoration: InputDecoration(
           border: InputBorder.none,
@@ -173,7 +168,7 @@ class _QrCreatePageState extends State<QrCreatePage> {
                 setEditable(!isContentEditable);
               }
             },
-            tooltip: isContentEditable ? 'Edit' : 'Locked',
+            tooltip: isContentEditable ? 'Submit' : 'Edit',
           ),
         ),
         cursorColor: Colors.blue,
@@ -208,7 +203,9 @@ class _QrCreatePageState extends State<QrCreatePage> {
   }
 
   void onSubmit(String data) {
-    setEditable(false);
-    cubit.updateQrData(data);
+    if (data.isNotEmpty) {
+      setEditable(false);
+      cubit.updateQrData(data);
+    }
   }
 }
