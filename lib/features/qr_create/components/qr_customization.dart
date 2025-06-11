@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:qr_generator_flutter/data/qr_model/qr_model.dart';
+import 'package:qr_generator_flutter/widgets/app_dropdown.dart';
 import 'package:qr_generator_flutter/widgets/app_tile.dart';
 import 'package:qr_generator_flutter/widgets/color_picker_dot.dart';
 
 class QrCustomization extends StatefulWidget {
-  const QrCustomization({
-    super.key,
-    this.initModel = const QrModel(),
-    required this.onChanged,
-  });
+  const QrCustomization({super.key, this.initModel, required this.onChanged});
 
-  final QrModel initModel;
+  final QrModel? initModel;
   final Function(QrModel model) onChanged;
 
   @override
@@ -18,44 +15,94 @@ class QrCustomization extends StatefulWidget {
 }
 
 class _QrCustomizationState extends State<QrCustomization> {
-  late QrModel _current = widget.initModel;
+  late final QrModel _current = widget.initModel ?? QrModel();
+
+  final rowSpace = SizedBox(height: 8);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Text('Qr Module'),
+
         AppTile(
-          label: 'Qr module color:',
+          label: 'Module color:',
           trailing: ColorPickerDot(
             selectedColor: _current.moduleStyle.color,
             onChanged: (color) {
               setState(() {
-                _current = _current.copyWith(
-                  moduleStyle: _current.moduleStyle.copyWith(color: color),
+                _current.moduleStyle = _current.moduleStyle.copyWith(
+                  color: color,
                 );
               });
               widget.onChanged(_current);
             },
           ),
         ),
-        SizedBox(height: 6,),
+        rowSpace,
 
         AppTile(
-          label: 'Qr eye color:',
+          label: 'Module type:',
+          trailing: AppDropdown<ModuleType>(
+            items: ModuleType.values,
+            value: _current.moduleStyle.toModuleType(),
+            onChanged: (ModuleType? value) {
+              setState(() {
+                _current.moduleStyle = _current.moduleStyle.copyWith(
+                  shape: value?.toLibType(),
+                );
+              });
+              widget.onChanged(_current);
+            },
+            itemBuilder: (ModuleType item) {
+              return Text(item.displayName);
+            },
+          ),
+        ),
+
+        rowSpace,
+
+        Text('Qr Eye'),
+
+        AppTile(
+          label: 'Eye color:',
           trailing: ColorPickerDot(
             selectedColor: _current.eyeStyle.color,
             onChanged: (color) {
               setState(() {
-                _current = _current.copyWith(
-                  eyeStyle: _current.eyeStyle.copyWith(color: color),
-                );
+                _current.eyeStyle = _current.eyeStyle.copyWith(color: color);
+
+                // _current = _current.copyWith(
+                //   eyeStyle: _current.eyeStyle.copyWith(color: color),
+                // );
               });
 
               widget.onChanged(_current);
             },
           ),
         ),
-        SizedBox(height: 6,),
+        rowSpace,
+
+        AppTile(
+          label: 'Eye type:',
+          trailing: AppDropdown<EyeType>(
+            items: EyeType.values,
+            value: _current.eyeStyle.toEyeType(),
+            onChanged: (EyeType? value) {
+              setState(() {
+                _current.eyeStyle = _current.eyeStyle.copyWith(
+                  shape: value?.toLibType(),
+                );
+              });
+              widget.onChanged(_current);
+            },
+            itemBuilder: (EyeType item) {
+              return Text(item.displayName);
+            },
+          ),
+        ),
+
+        rowSpace,
 
         AppTile(
           label: 'Background color:',
@@ -63,7 +110,9 @@ class _QrCustomizationState extends State<QrCustomization> {
             selectedColor: _current.backgroundColor,
             onChanged: (color) {
               setState(() {
-                _current = _current.copyWith(backgroundColor: color);
+                _current.backgroundColor = color;
+
+                // _current = _current.copyWith(backgroundColor: color);
               });
 
               widget.onChanged(_current);

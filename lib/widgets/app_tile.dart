@@ -17,7 +17,7 @@ class AppTile extends StatelessWidget {
         this.weightType = ItemWeightType.labelBias,
         this.isBold = false,
         this.crossAxisAlignment = CrossAxisAlignment.center,
-        this.labelSize = 12,
+        this.labelSize = 14,
         this.labelColor = const Color(0xFFD7D7D7)});
 
   final VoidCallback? onValueTap;

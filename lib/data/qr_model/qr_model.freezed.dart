@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$QrModel {
 
- String? get content; int get versions; QrEyeStyle get eyeStyle; QrDataModuleStyle get moduleStyle; Color get backgroundColor; int get version;
+ String? get content; set content(String? value); int get versions; set versions(int value); QrEyeStyle get eyeStyle; set eyeStyle(QrEyeStyle value); QrDataModuleStyle get moduleStyle; set moduleStyle(QrDataModuleStyle value); Color get backgroundColor; set backgroundColor(Color value); int get version; set version(int value);
 /// Create a copy of QrModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -24,14 +24,7 @@ $QrModelCopyWith<QrModel> get copyWith => _$QrModelCopyWithImpl<QrModel>(this as
 
 
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QrModel&&(identical(other.content, content) || other.content == content)&&(identical(other.versions, versions) || other.versions == versions)&&(identical(other.eyeStyle, eyeStyle) || other.eyeStyle == eyeStyle)&&(identical(other.moduleStyle, moduleStyle) || other.moduleStyle == moduleStyle)&&(identical(other.backgroundColor, backgroundColor) || other.backgroundColor == backgroundColor)&&(identical(other.version, version) || other.version == version));
-}
 
-
-@override
-int get hashCode => Object.hash(runtimeType,content,versions,eyeStyle,moduleStyle,backgroundColor,version);
 
 @override
 String toString() {
@@ -82,15 +75,15 @@ as int,
 
 
 class _QrModel implements QrModel {
-  const _QrModel({this.content, this.versions = -1, this.eyeStyle = _defaultEyeStyle, this.moduleStyle = _defaultModuleStyle, this.backgroundColor = Colors.black, this.version = -1});
+   _QrModel({this.content, this.versions = -1, this.eyeStyle = _defaultEyeStyle, this.moduleStyle = _defaultModuleStyle, this.backgroundColor = Colors.black, this.version = -1});
   
 
-@override final  String? content;
-@override@JsonKey() final  int versions;
-@override@JsonKey() final  QrEyeStyle eyeStyle;
-@override@JsonKey() final  QrDataModuleStyle moduleStyle;
-@override@JsonKey() final  Color backgroundColor;
-@override@JsonKey() final  int version;
+@override  String? content;
+@override@JsonKey()  int versions;
+@override@JsonKey()  QrEyeStyle eyeStyle;
+@override@JsonKey()  QrDataModuleStyle moduleStyle;
+@override@JsonKey()  Color backgroundColor;
+@override@JsonKey()  int version;
 
 /// Create a copy of QrModel
 /// with the given fields replaced by the non-null parameter values.
@@ -100,14 +93,7 @@ _$QrModelCopyWith<_QrModel> get copyWith => __$QrModelCopyWithImpl<_QrModel>(thi
 
 
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _QrModel&&(identical(other.content, content) || other.content == content)&&(identical(other.versions, versions) || other.versions == versions)&&(identical(other.eyeStyle, eyeStyle) || other.eyeStyle == eyeStyle)&&(identical(other.moduleStyle, moduleStyle) || other.moduleStyle == moduleStyle)&&(identical(other.backgroundColor, backgroundColor) || other.backgroundColor == backgroundColor)&&(identical(other.version, version) || other.version == version));
-}
 
-
-@override
-int get hashCode => Object.hash(runtimeType,content,versions,eyeStyle,moduleStyle,backgroundColor,version);
 
 @override
 String toString() {

@@ -4,9 +4,8 @@ import 'package:qr_generator_flutter/data/qr_model/qr_model.dart';
 part 'qr_create_state.freezed.dart';
 
 @freezed
-class QrCreateState with _$QrCreateState {
-  @override
-  final QrModel qrModel;
+abstract class QrCreateState with _$QrCreateState {
+  factory QrCreateState({required QrModel qrModel}) = _QrCreateState;
 
-  QrCreateState({this.qrModel = const QrModel()});
+  factory QrCreateState.df() => _QrCreateState(qrModel: QrModel());
 }

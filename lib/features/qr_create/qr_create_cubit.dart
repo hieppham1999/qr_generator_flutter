@@ -8,15 +8,18 @@ import 'package:qr_generator_flutter/features/qr_create/qr_create_state.dart';
 
 @injectable
 class QrCreateCubit extends BaseCubit<QrCreateState> {
-  QrCreateCubit() : super.normal(QrCreateState());
+  QrCreateCubit() : super.normal(QrCreateState.df());
 
   void updateQrData(String data) {
     if (data.isNotEmpty) {
-      emitNormal(
-        currentData.copyWith(
-          qrModel: currentData.qrModel.copyWith(content: data),
-        ),
-      );
+      currentData.qrModel.content = data;
+
+      emitNormal(currentData);
+      // emitNormal(
+      //   currentData.copyWith(
+      //     qrModel: currentData.qrModel.copyWith(content: data),
+      //   ),
+      // );
     } else {
       emitError("Not a valid text");
     }
@@ -32,32 +35,6 @@ class QrCreateCubit extends BaseCubit<QrCreateState> {
   void resetQrStyle() {
     emitNormal(
       currentData.copyWith(qrModel: QrModel.defaultStyle(currentData.qrModel)),
-    );
-  }
-
-  void updateQrModule({QrDataModuleShape? shape, Color? color}) {
-    emitNormal(
-      currentData.copyWith(
-        qrModel: currentData.qrModel.copyWith(
-          moduleStyle: currentData.qrModel.moduleStyle.copyWith(
-            shape: shape,
-            color: color,
-          ),
-        ),
-      ),
-    );
-  }
-
-  void updateQrEyeColor({QrEyeShape? shape, Color? color}) {
-    emitNormal(
-      currentData.copyWith(
-        qrModel: currentData.qrModel.copyWith(
-          eyeStyle: currentData.qrModel.eyeStyle.copyWith(
-            color: color,
-            shape: shape,
-          ),
-        ),
-      ),
     );
   }
 }

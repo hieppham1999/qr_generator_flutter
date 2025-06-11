@@ -17,9 +17,9 @@ const QrEyeStyle _defaultEyeStyle = QrEyeStyle(
   color: AppColors.defaultQrColor,
 );
 
-@freezed
+@unfreezed
 abstract class QrModel with _$QrModel {
-  const factory QrModel({
+  factory QrModel({
     String? content,
     @Default(-1) int versions,
     @Default(_defaultEyeStyle) QrEyeStyle eyeStyle,
@@ -28,14 +28,58 @@ abstract class QrModel with _$QrModel {
     @Default(-1) int version,
   }) = _QrModel;
 
-  factory QrModel.copyWithStyle(QrModel model, QrModel styleFrom) => styleFrom.copyWith(
-    content: model.content
-  );
+  factory QrModel.df() => _QrModel();
 
-  factory QrModel.defaultStyle(QrModel model) => model.copyWith(
-    eyeStyle: _defaultEyeStyle,
-    moduleStyle: _defaultModuleStyle,
-  );
+  factory QrModel.copyWithStyle(QrModel model, QrModel styleFrom) =>
+      styleFrom.copyWith(content: model.content);
+
+  factory QrModel.defaultStyle(QrModel model) => QrModel(content: model.content);
+}
+
+enum ModuleType {
+  square,
+  circle;
+
+  QrDataModuleShape toLibType() {
+    switch (this) {
+      case ModuleType.square:
+        return QrDataModuleShape.square;
+      case ModuleType.circle:
+        return QrDataModuleShape.circle;
+    }
+  }
+
+  String get displayName {
+    switch (this) {
+      case ModuleType.square:
+        return 'Square';
+      case ModuleType.circle:
+        return 'Circle';
+    }
+  }
+}
+
+enum EyeType {
+  square,
+  circle;
+
+  QrEyeShape toLibType() {
+    switch (this) {
+      case EyeType.square:
+        return QrEyeShape.square;
+      case EyeType.circle:
+        return QrEyeShape.circle;
+    }
+  }
+
+  String get displayName {
+    switch (this) {
+      case EyeType.square:
+        return 'Square';
+      case EyeType.circle:
+        return 'Circle';
+    }
+  }
 }
 
 extension QrDataModuleStyleExtension on QrDataModuleStyle {
@@ -45,13 +89,32 @@ extension QrDataModuleStyleExtension on QrDataModuleStyle {
       dataModuleShape: shape ?? dataModuleShape,
     );
   }
+
+  ModuleType? toModuleType() {
+    switch (dataModuleShape) {
+      case QrDataModuleShape.square:
+        return ModuleType.square;
+      case QrDataModuleShape.circle:
+        return ModuleType.circle;
+      case null:
+        return null;
+    }
+  }
 }
 
 extension QrDataEyeStyleExtension on QrEyeStyle {
   QrEyeStyle copyWith({Color? color, QrEyeShape? shape}) {
-    return QrEyeStyle(
-      color: color ?? this.color,
-      eyeShape: shape ?? eyeShape,
-    );
+    return QrEyeStyle(color: color ?? this.color, eyeShape: shape ?? eyeShape);
+  }
+
+  EyeType? toEyeType() {
+    switch (eyeShape) {
+      case QrEyeShape.square:
+        return EyeType.square;
+      case QrEyeShape.circle:
+        return EyeType.circle;
+      case null:
+        return null;
+    }
   }
 }

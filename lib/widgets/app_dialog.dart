@@ -42,7 +42,10 @@ class AppDialog extends StatelessWidget {
                 ),
               ),
             ),
-            body ?? SizedBox.shrink(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: body ?? SizedBox.shrink(),
+            ),
             Padding(
               padding: const EdgeInsets.all(4.0),
               child: Row(
