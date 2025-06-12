@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qr_generator_flutter/data/qr_model/qr_model.dart';
+import 'package:qr_generator_flutter/data/model/qr_model/qr_model.dart';
 import 'package:qr_generator_flutter/widgets/app_dropdown.dart';
 import 'package:qr_generator_flutter/widgets/app_tile.dart';
 import 'package:qr_generator_flutter/widgets/color_picker_dot.dart';
@@ -45,11 +45,12 @@ class _QrCustomizationState extends State<QrCustomization> {
           label: 'Module type:',
           trailing: AppDropdown<ModuleType>(
             items: ModuleType.values,
-            value: _current.moduleStyle.toModuleType(),
+            value: _current.moduleStyle.shape,
             onChanged: (ModuleType? value) {
+              if (value == null) return;
               setState(() {
                 _current.moduleStyle = _current.moduleStyle.copyWith(
-                  shape: value?.toLibType(),
+                  shape: value,
                 );
               });
               widget.onChanged(_current);
@@ -87,11 +88,12 @@ class _QrCustomizationState extends State<QrCustomization> {
           label: 'Eye type:',
           trailing: AppDropdown<EyeType>(
             items: EyeType.values,
-            value: _current.eyeStyle.toEyeType(),
+            value: _current.eyeStyle.shape,
             onChanged: (EyeType? value) {
+              if (value == null) return;
               setState(() {
                 _current.eyeStyle = _current.eyeStyle.copyWith(
-                  shape: value?.toLibType(),
+                  shape: value,
                 );
               });
               widget.onChanged(_current);

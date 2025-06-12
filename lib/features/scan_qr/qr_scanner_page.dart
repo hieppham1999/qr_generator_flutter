@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_generator_flutter/base/bloc_state_builder.dart';
-import 'package:qr_generator_flutter/data/qr_model/qr_scan_result.dart';
+import 'package:qr_generator_flutter/data/model/qr_scan_result/qr_scan_result.dart';
 import 'package:qr_generator_flutter/di/injection.dart';
 import 'package:qr_generator_flutter/features/scan_qr/qr_scan_cubit.dart';
 import 'package:qr_generator_flutter/features/scan_qr/qr_scan_state.dart';

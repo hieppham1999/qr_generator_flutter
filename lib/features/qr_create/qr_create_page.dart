@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_generator_flutter/base/bloc_state_builder.dart';
 import 'package:qr_generator_flutter/core/languages.dart';
-import 'package:qr_generator_flutter/data/qr_model/qr_model.dart';
+import 'package:qr_generator_flutter/data/model/qr_model/qr_model.dart';
 import 'package:qr_generator_flutter/di/injection.dart';
 import 'package:qr_generator_flutter/features/qr_create/components/qr_customization.dart';
 import 'package:qr_generator_flutter/features/qr_create/qr_create_cubit.dart';
@@ -76,8 +76,8 @@ class _QrCreatePageState extends State<QrCreatePage> {
                               child: QrImageView(
                                 data: qrModel.content ?? '',
                                 version: qrModel.version,
-                                eyeStyle: qrModel.eyeStyle,
-                                dataModuleStyle: qrModel.moduleStyle,
+                                eyeStyle: qrModel.eyeStyle.toLib(),
+                                dataModuleStyle: qrModel.moduleStyle.toLib(),
                                 embeddedImageEmitsError: true,
                                 size: MediaQuery.of(context).size.width * 0.7,
                                 backgroundColor: qrModel.backgroundColor,
@@ -114,7 +114,10 @@ class _QrCreatePageState extends State<QrCreatePage> {
 
                   if (isQrShow)
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        cubit.saveQr();
+                        Navigator.pop(context);
+                      },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
