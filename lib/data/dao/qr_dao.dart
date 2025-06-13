@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'package:qr_generator_flutter/data/entity/qr_entity.dart';
-import 'package:qr_generator_flutter/data/model/qr_model/qr_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 
@@ -9,9 +7,8 @@ class QrDao {
 
   QrDao(this.db);
 
-  static const String tableName = 'qr_codes';
+  static const tableName = 'qr_table';
 
-  /// Create table SQL
   static const createTable = '''
     CREATE TABLE $tableName (
       id TEXT PRIMARY KEY,
@@ -21,15 +18,7 @@ class QrDao {
     )
   ''';
 
-  /// Insert or update a QR code
-  Future<void> upsert(QrModel model, {required String id}) async {
-    final now = DateTime.now();
-    final entity = QrEntity(
-      id: id,
-      rawJsonData: jsonEncode(model.toJson()),
-      createdAt: now,
-      updatedAt: now,
-    );
+  Future<void> insert(QrEntity entity) async {
     await db.insert(
       tableName,
       entity.toJson(),
@@ -37,36 +26,33 @@ class QrDao {
     );
   }
 
-  /// Get all saved QR codes
-  Future<List<QrModel>> getAll() async {
-    final result = await db.query(tableName, orderBy: 'updatedAt DESC');
-    return result
-        .map((e) => QrModel.fromJson(jsonDecode(e['rawJsonData'] as String)))
-        .toList();
+  Future<void> update(QrEntity entity) async {
+    await db.update(
+      tableName,
+      entity.toJson(),
+      where: "id = ?",
+      whereArgs: [entity.id],
+    );
   }
 
-  /// Get single QR code by ID
-  Future<QrModel?> getById(String id) async {
+  Future<List<QrEntity>> getAll() async {
+    final maps = await db.query(tableName);
+    return maps.map((e) => QrEntity.fromJson(e)).toList();
+  }
+
+  Future<void> delete(String id) async {
+    await db.delete(tableName, where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<QrEntity?> getById(String id) async {
     final result = await db.query(
       tableName,
       where: 'id = ?',
       whereArgs: [id],
     );
-    if (result.isEmpty) return null;
-    return QrModel.fromJson(jsonDecode(result.first['rawJsonData'] as String));
-  }
-
-  /// Delete QR by ID
-  Future<void> delete(String id) async {
-    await db.delete(
-      tableName,
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-  }
-
-  /// Clear all QR codes
-  Future<void> clearAll() async {
-    await db.delete(tableName);
+    if (result.isNotEmpty) {
+      return QrEntity.fromJson(result.first);
+    }
+    return null;
   }
 }
