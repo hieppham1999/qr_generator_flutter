@@ -1,20 +1,14 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'app_settings.freezed.dart';
 
 @freezed
-class AppSettings with _$AppSettings {
-  final Locale locale;
-  final ThemeMode themeMode;
-  final Color colorSchemeSeed;
-  final bool notificationsEnabled;
-
-  const AppSettings({
-    this.locale = const Locale('en'),
-    this.themeMode = ThemeMode.dark,
-    this.colorSchemeSeed = Colors.blue,
-    this.notificationsEnabled = true,
-  });
+abstract class AppSettings with _$AppSettings {
+  const factory AppSettings({
+    @Default(Locale('en')) Locale locale,
+    @Default(ThemeMode.dark) ThemeMode themeMode,
+    @Default(Colors.blue) Color colorSchemeSeed,
+    @Default(true) bool notificationsEnabled,
+  }) = _AppSettings;
 }

@@ -64,7 +64,7 @@ class _$AppSettingsCopyWithImpl<$Res>
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? locale = null,Object? themeMode = null,Object? colorSchemeSeed = null,Object? notificationsEnabled = null,}) {
-  return _then(AppSettings(
+  return _then(_self.copyWith(
 locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
 as Locale,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
 as ThemeMode,colorSchemeSeed: null == colorSchemeSeed ? _self.colorSchemeSeed : colorSchemeSeed // ignore: cast_nullable_to_non_nullable
@@ -75,5 +75,77 @@ as bool,
 
 }
 
+
+/// @nodoc
+
+
+class _AppSettings implements AppSettings {
+  const _AppSettings({this.locale = const Locale('en'), this.themeMode = ThemeMode.dark, this.colorSchemeSeed = Colors.blue, this.notificationsEnabled = true});
+  
+
+@override@JsonKey() final  Locale locale;
+@override@JsonKey() final  ThemeMode themeMode;
+@override@JsonKey() final  Color colorSchemeSeed;
+@override@JsonKey() final  bool notificationsEnabled;
+
+/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AppSettingsCopyWith<_AppSettings> get copyWith => __$AppSettingsCopyWithImpl<_AppSettings>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppSettings&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorSchemeSeed, colorSchemeSeed) || other.colorSchemeSeed == colorSchemeSeed)&&(identical(other.notificationsEnabled, notificationsEnabled) || other.notificationsEnabled == notificationsEnabled));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,locale,themeMode,colorSchemeSeed,notificationsEnabled);
+
+@override
+String toString() {
+  return 'AppSettings(locale: $locale, themeMode: $themeMode, colorSchemeSeed: $colorSchemeSeed, notificationsEnabled: $notificationsEnabled)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AppSettingsCopyWith<$Res> implements $AppSettingsCopyWith<$Res> {
+  factory _$AppSettingsCopyWith(_AppSettings value, $Res Function(_AppSettings) _then) = __$AppSettingsCopyWithImpl;
+@override @useResult
+$Res call({
+ Locale locale, ThemeMode themeMode, Color colorSchemeSeed, bool notificationsEnabled
+});
+
+
+
+
+}
+/// @nodoc
+class __$AppSettingsCopyWithImpl<$Res>
+    implements _$AppSettingsCopyWith<$Res> {
+  __$AppSettingsCopyWithImpl(this._self, this._then);
+
+  final _AppSettings _self;
+  final $Res Function(_AppSettings) _then;
+
+/// Create a copy of AppSettings
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? locale = null,Object? themeMode = null,Object? colorSchemeSeed = null,Object? notificationsEnabled = null,}) {
+  return _then(_AppSettings(
+locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
+as Locale,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
+as ThemeMode,colorSchemeSeed: null == colorSchemeSeed ? _self.colorSchemeSeed : colorSchemeSeed // ignore: cast_nullable_to_non_nullable
+as Color,notificationsEnabled: null == notificationsEnabled ? _self.notificationsEnabled : notificationsEnabled // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+
+}
 
 // dart format on
