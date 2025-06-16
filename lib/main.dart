@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:qr_generator_flutter/core/theme.dart';
+import 'package:qr_generator_flutter/data/database/qr_database.dart';
 import 'package:qr_generator_flutter/di/injection.dart';
-import 'package:qr_generator_flutter/features/app_setting/app_setting_cubit.dart';
 import 'package:qr_generator_flutter/navigation/app_navigator.dart';
 import 'package:qr_generator_flutter/navigation/app_router.dart';
 import 'package:qr_generator_flutter/base/bloc_state_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:qr_generator_flutter/presentation/features/app_setting/app_setting_cubit.dart';
 
 
 void main() async {
@@ -13,6 +14,10 @@ void main() async {
 
   const env = String.fromEnvironment('env', defaultValue: 'dev');
   await configureDependencies(env);
+
+  final db = getIt<QrDatabase>();
+  await db.init();
+
   runApp(MyApp());
 }
 

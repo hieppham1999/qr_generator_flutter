@@ -11,7 +11,6 @@ class QrDatabase {
   static const _dbVersion = 1;
 
   late final Database _database;
-  late final QrDao qrDao;
 
   /// Initialize the database
   Future<void> init() async {
@@ -26,7 +25,6 @@ class QrDatabase {
       },
     );
 
-    qrDao = QrDao(_database);
   }
 
   /// Getter for the database instance

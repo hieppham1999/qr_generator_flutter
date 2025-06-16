@@ -4,8 +4,8 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_generator_flutter/base/bloc_state_builder.dart';
 import 'package:qr_generator_flutter/data/model/qr_scan_result/qr_scan_result.dart';
 import 'package:qr_generator_flutter/di/injection.dart';
-import 'package:qr_generator_flutter/features/scan_qr/qr_scan_cubit.dart';
-import 'package:qr_generator_flutter/features/scan_qr/qr_scan_state.dart';
+import 'package:qr_generator_flutter/presentation/features/qr_scan/qr_scan_cubit.dart';
+import 'package:qr_generator_flutter/presentation/features/qr_scan/qr_scan_state.dart';
 import 'package:qr_generator_flutter/utils/app_logger.dart';
 
 class QrScannerPage extends StatefulWidget {
@@ -59,7 +59,6 @@ class _QrScannerPageState extends State<QrScannerPage> {
                 final Size layoutSize = constraints.biggest;
 
                 final double scanWindowWidth = layoutSize.width / 2;
-                final double scanWindowHeight = layoutSize.height / 2;
 
                 final Rect scanWindow = Rect.fromCenter(
                   center: layoutSize.center(Offset.zero),

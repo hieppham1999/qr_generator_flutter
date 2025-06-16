@@ -1,10 +1,10 @@
 import 'package:injectable/injectable.dart';
 import 'package:qr_generator_flutter/base/base_cubit.dart';
-import 'package:qr_generator_flutter/features/home/home_state.dart';
+import 'package:qr_generator_flutter/presentation/features/main_screen/main_screen_state.dart';
 
 @singleton
-class HomeCubit extends BaseCubit<HomeState> {
-  HomeCubit() : super.normal(HomeState());
+class MainScreenCubit extends BaseCubit<MainScreenState> {
+  MainScreenCubit() : super.normal(MainScreenState());
 
   void init() {
     print("Init");

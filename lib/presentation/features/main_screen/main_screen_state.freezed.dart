@@ -4,7 +4,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'home_state.dart';
+part of 'main_screen_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,20 +13,20 @@ part of 'home_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$HomeState {
+mixin _$MainScreenState {
 
  int get pageIndex;
-/// Create a copy of HomeState
+/// Create a copy of MainScreenState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$HomeStateCopyWith<HomeState> get copyWith => _$HomeStateCopyWithImpl<HomeState>(this as HomeState, _$identity);
+$MainScreenStateCopyWith<MainScreenState> get copyWith => _$MainScreenStateCopyWithImpl<MainScreenState>(this as MainScreenState, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState&&(identical(other.pageIndex, pageIndex) || other.pageIndex == pageIndex));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MainScreenState&&(identical(other.pageIndex, pageIndex) || other.pageIndex == pageIndex));
 }
 
 
@@ -35,15 +35,15 @@ int get hashCode => Object.hash(runtimeType,pageIndex);
 
 @override
 String toString() {
-  return 'HomeState(pageIndex: $pageIndex)';
+  return 'MainScreenState(pageIndex: $pageIndex)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $HomeStateCopyWith<$Res>  {
-  factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) _then) = _$HomeStateCopyWithImpl;
+abstract mixin class $MainScreenStateCopyWith<$Res>  {
+  factory $MainScreenStateCopyWith(MainScreenState value, $Res Function(MainScreenState) _then) = _$MainScreenStateCopyWithImpl;
 @useResult
 $Res call({
  int pageIndex
@@ -54,14 +54,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$HomeStateCopyWithImpl<$Res>
-    implements $HomeStateCopyWith<$Res> {
-  _$HomeStateCopyWithImpl(this._self, this._then);
+class _$MainScreenStateCopyWithImpl<$Res>
+    implements $MainScreenStateCopyWith<$Res> {
+  _$MainScreenStateCopyWithImpl(this._self, this._then);
 
-  final HomeState _self;
-  final $Res Function(HomeState) _then;
+  final MainScreenState _self;
+  final $Res Function(MainScreenState) _then;
 
-/// Create a copy of HomeState
+/// Create a copy of MainScreenState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? pageIndex = null,}) {
   return _then(_self.copyWith(
@@ -76,23 +76,23 @@ as int,
 /// @nodoc
 
 
-class _HomeState implements HomeState {
-   _HomeState({this.pageIndex = 0});
+class _MainScreenState implements MainScreenState {
+   _MainScreenState({this.pageIndex = 0});
   
 
 @override@JsonKey() final  int pageIndex;
 
-/// Create a copy of HomeState
+/// Create a copy of MainScreenState
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$HomeStateCopyWith<_HomeState> get copyWith => __$HomeStateCopyWithImpl<_HomeState>(this, _$identity);
+_$MainScreenStateCopyWith<_MainScreenState> get copyWith => __$MainScreenStateCopyWithImpl<_MainScreenState>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeState&&(identical(other.pageIndex, pageIndex) || other.pageIndex == pageIndex));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MainScreenState&&(identical(other.pageIndex, pageIndex) || other.pageIndex == pageIndex));
 }
 
 
@@ -101,15 +101,15 @@ int get hashCode => Object.hash(runtimeType,pageIndex);
 
 @override
 String toString() {
-  return 'HomeState(pageIndex: $pageIndex)';
+  return 'MainScreenState(pageIndex: $pageIndex)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
-  factory _$HomeStateCopyWith(_HomeState value, $Res Function(_HomeState) _then) = __$HomeStateCopyWithImpl;
+abstract mixin class _$MainScreenStateCopyWith<$Res> implements $MainScreenStateCopyWith<$Res> {
+  factory _$MainScreenStateCopyWith(_MainScreenState value, $Res Function(_MainScreenState) _then) = __$MainScreenStateCopyWithImpl;
 @override @useResult
 $Res call({
  int pageIndex
@@ -120,17 +120,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$HomeStateCopyWithImpl<$Res>
-    implements _$HomeStateCopyWith<$Res> {
-  __$HomeStateCopyWithImpl(this._self, this._then);
+class __$MainScreenStateCopyWithImpl<$Res>
+    implements _$MainScreenStateCopyWith<$Res> {
+  __$MainScreenStateCopyWithImpl(this._self, this._then);
 
-  final _HomeState _self;
-  final $Res Function(_HomeState) _then;
+  final _MainScreenState _self;
+  final $Res Function(_MainScreenState) _then;
 
-/// Create a copy of HomeState
+/// Create a copy of MainScreenState
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? pageIndex = null,}) {
-  return _then(_HomeState(
+  return _then(_MainScreenState(
 pageIndex: null == pageIndex ? _self.pageIndex : pageIndex // ignore: cast_nullable_to_non_nullable
 as int,
   ));

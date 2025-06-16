@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:qr_generator_flutter/base/bloc_state_builder.dart';
 import 'package:qr_generator_flutter/di/injection.dart';
-import 'package:qr_generator_flutter/features/home/home_tab_cubit.dart';
-import 'package:qr_generator_flutter/features/home/home_tab_state.dart';
-import 'package:qr_generator_flutter/widgets/qr_card_item.dart';
+import 'package:qr_generator_flutter/navigation/app_navigator.dart';
+import 'package:qr_generator_flutter/navigation/app_routes.dart';
+import 'package:qr_generator_flutter/presentation/features/home_tab/home_tab_cubit.dart';
+import 'package:qr_generator_flutter/presentation/features/home_tab/home_tab_state.dart';
+import 'package:qr_generator_flutter/presentation/widgets/qr_card_item.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -18,7 +20,7 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   void initState() {
-    cubit.loadQrList();
+    cubit.init();
     super.initState();
   }
 
@@ -26,7 +28,11 @@ class _HomeTabState extends State<HomeTab> {
   Widget build(BuildContext context) {
     return CubitStateBuilder<HomeTabState>(
       cubit: cubit,
-      builder: (_, state) => ListView.builder(
+      builder: (_, state) => state.listQr.isEmpty ? Center(
+          child: ElevatedButton(onPressed: () {
+            NavController.pushNamed(QrCreateRoute());
+          }, child: Text("Create QR"))) :
+        ListView.builder(
         itemCount: state.listQr.length,
         itemBuilder: (context, index) {
 

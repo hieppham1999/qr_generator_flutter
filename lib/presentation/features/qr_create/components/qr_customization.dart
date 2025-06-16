@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:qr_generator_flutter/data/model/qr_model/qr_model.dart';
-import 'package:qr_generator_flutter/widgets/app_dropdown.dart';
-import 'package:qr_generator_flutter/widgets/app_tile.dart';
-import 'package:qr_generator_flutter/widgets/color_picker_dot.dart';
+import 'package:qr_generator_flutter/presentation/widgets/app_dropdown.dart';
+import 'package:qr_generator_flutter/presentation/widgets/app_tile.dart';
+import 'package:qr_generator_flutter/presentation/widgets/color_picker_dot.dart';
 
 class QrCustomization extends StatefulWidget {
   const QrCustomization({super.key, this.initModel, required this.onChanged});

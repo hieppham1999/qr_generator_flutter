@@ -15,7 +15,7 @@ class AppBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConvexAppBar(
-      initialActiveIndex: 1,
+      initialActiveIndex: currentIndex,
       onTap: onItemTapped,
       style: TabStyle.fixedCircle,
       activeColor: Colors.amber[800],

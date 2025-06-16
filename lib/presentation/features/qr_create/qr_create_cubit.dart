@@ -1,11 +1,14 @@
 import 'package:injectable/injectable.dart';
 import 'package:qr_generator_flutter/base/base_cubit.dart';
 import 'package:qr_generator_flutter/data/model/qr_model/qr_model.dart';
-import 'package:qr_generator_flutter/features/qr_create/qr_create_state.dart';
+import 'package:qr_generator_flutter/data/repository/qr_repositories.dart';
+import 'package:qr_generator_flutter/presentation/features/qr_create/qr_create_state.dart';
 
 @injectable
 class QrCreateCubit extends BaseCubit<QrCreateState> {
-  QrCreateCubit() : super.normal(QrCreateState.df());
+  QrCreateCubit(this._repository) : super.normal(QrCreateState.df());
+
+  final QrRepository _repository;
 
   void updateQrData(String data) {
     if (data.isNotEmpty) {
@@ -36,6 +39,6 @@ class QrCreateCubit extends BaseCubit<QrCreateState> {
   }
 
   void saveQr() {
-
+    _repository.saveQr(currentData.qrModel);
   }
 }

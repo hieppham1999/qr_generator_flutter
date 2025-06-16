@@ -1,7 +1,8 @@
+import 'package:injectable/injectable.dart';
 import 'package:qr_generator_flutter/data/dao/qr_dao.dart';
 import 'package:qr_generator_flutter/data/entity/qr_entity.dart';
-import 'package:sqflite/sqflite.dart';
 
+@injectable
 class QrLocalDataSource {
   final QrDao dao;
 

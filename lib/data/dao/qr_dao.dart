@@ -1,9 +1,11 @@
+import 'package:injectable/injectable.dart';
+import 'package:qr_generator_flutter/data/database/qr_database.dart';
 import 'package:qr_generator_flutter/data/entity/qr_entity.dart';
 import 'package:sqflite/sqflite.dart';
 
-
+@injectable
 class QrDao {
-  final Database db;
+  final QrDatabase db;
 
   QrDao(this.db);
 
@@ -19,7 +21,7 @@ class QrDao {
   ''';
 
   Future<void> insert(QrEntity entity) async {
-    await db.insert(
+    await db.instance.insert(
       tableName,
       entity.toJson(),
       conflictAlgorithm: ConflictAlgorithm.replace,
@@ -27,7 +29,7 @@ class QrDao {
   }
 
   Future<void> update(QrEntity entity) async {
-    await db.update(
+    await db.instance.update(
       tableName,
       entity.toJson(),
       where: "id = ?",
@@ -36,16 +38,16 @@ class QrDao {
   }
 
   Future<List<QrEntity>> getAll() async {
-    final maps = await db.query(tableName);
+    final maps = await db.instance.query(tableName);
     return maps.map((e) => QrEntity.fromJson(e)).toList();
   }
 
   Future<void> delete(String id) async {
-    await db.delete(tableName, where: 'id = ?', whereArgs: [id]);
+    await db.instance.delete(tableName, where: 'id = ?', whereArgs: [id]);
   }
 
   Future<QrEntity?> getById(String id) async {
-    final result = await db.query(
+    final result = await db.instance.query(
       tableName,
       where: 'id = ?',
       whereArgs: [id],

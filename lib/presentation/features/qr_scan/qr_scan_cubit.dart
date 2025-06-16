@@ -5,7 +5,7 @@ import 'package:qr_generator_flutter/base/base_cubit.dart';
 import 'package:qr_generator_flutter/data/model/qr_model/qr_model.dart';
 import 'package:qr_generator_flutter/data/model/qr_scan_result/qr_scan_result.dart';
 import 'package:qr_generator_flutter/data/repository/qr_repositories.dart';
-import 'package:qr_generator_flutter/features/scan_qr/qr_scan_state.dart';
+import 'package:qr_generator_flutter/presentation/features/qr_scan/qr_scan_state.dart';
 
 @injectable
 class QrScanCubit extends BaseCubit<QrScanState> {

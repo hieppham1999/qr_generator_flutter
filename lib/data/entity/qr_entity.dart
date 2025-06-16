@@ -19,19 +19,3 @@ abstract class QrEntity with _$QrEntity {
   /// Factory method for deserialization from JSON
   factory QrEntity.fromJson(Map<String, dynamic> json) => _$QrEntityFromJson(json);
 }
-
-extension QrModelMapping on QrModel {
-  QrEntity toEntity(String id) {
-    final now = DateTime.now();
-    return QrEntity(
-      id: id,
-      rawJsonData: jsonEncode(toJson()),
-      createdAt: now,
-      updatedAt: now,
-    );
-  }
-
-  static QrModel fromEntity(QrEntity entity) {
-    return QrModel.fromJson(jsonDecode(entity.rawJsonData));
-  }
-}

@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:qr_generator_flutter/features/home/home_cubit.dart';
-import 'package:qr_generator_flutter/features/home/home_state.dart';
 import 'package:qr_generator_flutter/navigation/app_navigator.dart';
 import 'package:qr_generator_flutter/navigation/app_routes.dart';
 import 'package:qr_generator_flutter/base/bloc_state_builder.dart';
 import 'package:qr_generator_flutter/di/injection.dart';
-import 'package:qr_generator_flutter/widgets/bottom_navigation_bar.dart';
+import 'package:qr_generator_flutter/presentation/features/home_tab/home_tab.dart';
+import 'package:qr_generator_flutter/presentation/features/main_screen/main_screen_cubit.dart';
+import 'package:qr_generator_flutter/presentation/features/main_screen/main_screen_state.dart';
+import 'package:qr_generator_flutter/presentation/widgets/bottom_navigation_bar.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({super.key});
+class MainScreen extends StatefulWidget {
+  MainScreen({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MainScreenState extends State<MainScreen> {
   final TextEditingController textEditingController = TextEditingController();
 
-  final homeCubit = getIt.get<HomeCubit>();
+  final homeCubit = getIt.get<MainScreenCubit>();
 
   @override
   Widget build(BuildContext context) {
 
 
-    return CubitStateBuilder<HomeState>(
+    return CubitStateBuilder<MainScreenState>(
       cubit: homeCubit,
       builder:
           (_, state) {
@@ -60,10 +61,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildQrImage() {
-    return Center(
-        child: ElevatedButton(onPressed: () {
-          NavController.pushNamed(QrCreateRoute());
-        }, child: Text("Create QR")));
+    return HomeTab();
   }
 
   Widget _buildSettings() {

@@ -4,10 +4,10 @@ import 'package:qr_generator_flutter/base/bloc_state_builder.dart';
 import 'package:qr_generator_flutter/core/languages.dart';
 import 'package:qr_generator_flutter/data/model/qr_model/qr_model.dart';
 import 'package:qr_generator_flutter/di/injection.dart';
-import 'package:qr_generator_flutter/features/qr_create/components/qr_customization.dart';
-import 'package:qr_generator_flutter/features/qr_create/qr_create_cubit.dart';
-import 'package:qr_generator_flutter/features/qr_create/qr_create_state.dart';
-import 'package:qr_generator_flutter/widgets/app_dialog.dart';
+import 'package:qr_generator_flutter/presentation/features/qr_create/components/qr_customization.dart';
+import 'package:qr_generator_flutter/presentation/features/qr_create/qr_create_cubit.dart';
+import 'package:qr_generator_flutter/presentation/features/qr_create/qr_create_state.dart';
+import 'package:qr_generator_flutter/presentation/widgets/app_dialog.dart';
 
 class QrCreatePage extends StatefulWidget {
   const QrCreatePage({super.key, this.qrContent});
