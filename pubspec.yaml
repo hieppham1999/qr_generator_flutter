@@ -32,6 +32,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  another_flushbar: ^1.12.30
+  auto_size_text_field: ^2.2.4
   convex_bottom_bar: ^3.2.0
   equatable: ^2.0.7
   intl:

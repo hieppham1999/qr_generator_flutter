@@ -34,7 +34,7 @@ class _QrCreatePageState extends State<QrCreatePage> {
         padding: const EdgeInsets.all(12.0),
         child: CubitStateBuilder<QrCreateState>(
           cubit: cubit,
-          builder: (_, state) {
+          builder: (stateContext, state) {
             final qrModel = state.qrModel;
 
             return AnimatedContainer(
@@ -114,9 +114,13 @@ class _QrCreatePageState extends State<QrCreatePage> {
 
                   if (isQrShow)
                     ElevatedButton(
-                      onPressed: () {
-                        cubit.saveQr();
+                      onPressed: () async{
                         Navigator.pop(context);
+                        final result = await cubit.saveQr();
+                        // if (result) {
+                        //   await Future.delayed(const Duration(milliseconds: 500));
+                        //   Navigator.pop(context);
+                        // }
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(

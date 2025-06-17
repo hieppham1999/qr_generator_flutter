@@ -96,7 +96,7 @@ $MyQrModuleStyleCopyWith<$Res> get moduleStyle {
 @JsonSerializable()
 
 class _QrModel implements QrModel {
-   _QrModel({this.content, this.versions = -1, this.eyeStyle = _defaultEyeStyle, this.moduleStyle = _defaultModuleStyle, @ColorConverter() this.backgroundColor = Colors.black, this.version = -1});
+   _QrModel({this.content, this.versions = -1, this.eyeStyle = _defaultEyeStyle, this.moduleStyle = _defaultModuleStyle, @ColorConverter() this.backgroundColor = Colors.blueAccent, this.version = -1});
   factory _QrModel.fromJson(Map<String, dynamic> json) => _$QrModelFromJson(json);
 
 @override  String? content;

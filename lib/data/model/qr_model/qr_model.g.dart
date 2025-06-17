@@ -21,7 +21,7 @@ _QrModel _$QrModelFromJson(Map<String, dynamic> json) => _QrModel(
           ),
   backgroundColor:
       json['backgroundColor'] == null
-          ? Colors.black
+          ? Colors.blueAccent
           : const ColorConverter().fromJson(
             (json['backgroundColor'] as num).toInt(),
           ),

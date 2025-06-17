@@ -15,7 +15,6 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-
   final cubit = getIt.get<HomeTabCubit>();
 
   @override
@@ -28,32 +27,50 @@ class _HomeTabState extends State<HomeTab> {
   Widget build(BuildContext context) {
     return CubitStateBuilder<HomeTabState>(
       cubit: cubit,
-      builder: (_, state) => state.listQr.isEmpty ? Center(
-          child: ElevatedButton(onPressed: () {
-            NavController.pushNamed(QrCreateRoute());
-          }, child: Text("Create QR"))) :
-        ListView.builder(
-        itemCount: state.listQr.length,
-        itemBuilder: (context, index) {
+      builder:
+          (_, state) =>
+              state.listQr.isEmpty
+                  ? Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        NavController.pushNamed(QrCreateRoute());
+                      },
+                      child: Text("Create QR"),
+                    ),
+                  )
+                  : Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          NavController.pushNamed(QrCreateRoute());
+                        },
+                        child: Text("Create QR"),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: state.listQr.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            final item = state.listQr[index];
 
-          final item = state.listQr[index];
-
-
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Text(
-              //     item.createdAt.toString(),
-              //     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              //   ),
-              // ),
-              QrCard(qr: item),
-            ],
-          );
-        },
-      ),
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Padding(
+                                //   padding: const EdgeInsets.all(8.0),
+                                //   child: Text(
+                                //     item.createdAt.toString(),
+                                //     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                //   ),
+                                // ),
+                                QrCard(qr: item),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
     );
   }
 }

@@ -18,7 +18,7 @@ abstract class QrModel with _$QrModel {
     @Default(-1) int versions,
     @Default(_defaultEyeStyle) MyQrEyeStyle eyeStyle,
     @Default(_defaultModuleStyle) MyQrModuleStyle moduleStyle,
-    @ColorConverter() @Default(Colors.black) Color backgroundColor,
+    @ColorConverter() @Default(Colors.blueAccent) Color backgroundColor,
     @Default(-1) int version,
   }) = _QrModel;
 
@@ -79,7 +79,7 @@ enum EyeType {
   }
 }
 
-const _defaultEyeColor = Colors.black;
+const _defaultEyeColor = Colors.white;
 
 @freezed
 abstract class MyQrEyeStyle with _$MyQrEyeStyle {
@@ -106,7 +106,7 @@ abstract class MyQrEyeStyle with _$MyQrEyeStyle {
   factory MyQrEyeStyle.fromJson(Map<String, dynamic> json) => _$MyQrEyeStyleFromJson(json);
 }
 
-const _defaultModuleColor = Colors.black;
+const _defaultModuleColor = Colors.white;
 
 @freezed
 abstract class MyQrModuleStyle with _$MyQrModuleStyle {

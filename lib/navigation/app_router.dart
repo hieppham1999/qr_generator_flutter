@@ -30,8 +30,13 @@ class AppRouter {
       case QrScanRoute():
         return MaterialPageRoute(builder: (_) => QrScannerPage());
       case QrCreateRoute():
-        return MaterialPageRoute(builder: (_) => QrCreatePage(qrContent: args.qrContent,));
-
+        return MaterialPageRoute(
+          builder:
+              (_) =>
+              QrCreatePage(
+                qrContent: args.qrContent,
+              ),
+        );
     }
   }
 

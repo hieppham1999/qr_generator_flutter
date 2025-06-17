@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 sealed class AppRoutes {
   final String path;
   const AppRoutes({required this.path});
@@ -18,5 +20,6 @@ class QrScanRoute extends AppRoutes {
 class QrCreateRoute extends AppRoutes {
   final String? qrContent;
 
-  const QrCreateRoute({this.qrContent}) : super(path: '/qr-create');
+  const QrCreateRoute({this.qrContent,})
+      : super(path: '/qr-create');
 }

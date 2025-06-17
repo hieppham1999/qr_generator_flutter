@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_generator_flutter/presentation/viewmodels/qr_view_data.dart';
 
 class QrCard extends StatelessWidget {
@@ -17,12 +18,15 @@ class QrCard extends StatelessWidget {
       elevation: 2,
       child: ListTile(
         title: Text(content.content ?? ''),
-        subtitle: Text('Updated: ${DateFormat.Hm().format(qr.updatedAt)}'),
-        trailing: IconButton(
-          icon: const Icon(Icons.qr_code),
-          onPressed: () {
-            // Handle view qr details or show qr graphic
-          },
+        subtitle: Text('Updated: ${DateFormat.yMd().format(qr.updatedAt)}'),
+        trailing: QrImageView(
+          data: qr.model.content ?? '',
+          version: qr.model.version,
+          eyeStyle: qr.model.eyeStyle.toLib(),
+          dataModuleStyle: qr.model.moduleStyle.toLib(),
+          embeddedImageEmitsError: true,
+          size: 50,
+          backgroundColor: qr.model.backgroundColor,
         ),
       ),
     );
