@@ -4,5 +4,11 @@
   "titleColorPicker": "Pick a color!",
   "buttonSelect": "Select",
   "buttonCancel": "Cancel",
-  "homeTab": "Home"
+  "homeTab": "Home",
+  "save": "Save",
+  "reset": "Reset",
+  "customize": "Customize",
+  "preview": "Preview",
+  "createQr": "Qr Create",
+  "updateQr": "Qr Update"
 }

@@ -8,7 +8,7 @@ abstract class AppSettings with _$AppSettings {
   const factory AppSettings({
     @Default(Locale('en')) Locale locale,
     @Default(ThemeMode.dark) ThemeMode themeMode,
-    @Default(Colors.blue) Color colorSchemeSeed,
+    @Default(Colors.purple) Color colorSchemeSeed,
     @Default(true) bool notificationsEnabled,
   }) = _AppSettings;
 }

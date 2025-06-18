@@ -4,5 +4,11 @@
   "titleColorPicker": "Chọn màu",
   "buttonSelect": "Chọn",
   "buttonCancel": "Huỷ",
-  "homeTab": "Trang chủ"
+  "homeTab": "Trang chủ",
+  "save": "Lưu",
+  "reset": "Cài lại",
+  "customize": "Tùy chỉnh",
+  "preview": "Xem trước",
+  "createQr": "Tạo mã Qr",
+  "updateQr": "Cập nhật"
 }

@@ -20,7 +20,7 @@ class AppBottomNavigationBar extends StatelessWidget {
       style: TabStyle.fixedCircle,
       activeColor: Colors.amber[800],
       color: Colors.white,
-      backgroundColor: Theme.of(context).bottomAppBarTheme.color,
+      backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
       // Ensures all items are visible and labels shown
       items: [
         TabItem(

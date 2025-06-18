@@ -8,7 +8,7 @@ part of 'qr_model.dart';
 
 _QrModel _$QrModelFromJson(Map<String, dynamic> json) => _QrModel(
   content: json['content'] as String?,
-  versions: (json['versions'] as num?)?.toInt() ?? -1,
+  originalContent: json['originalContent'] as String?,
   eyeStyle:
       json['eyeStyle'] == null
           ? _defaultEyeStyle
@@ -26,16 +26,20 @@ _QrModel _$QrModelFromJson(Map<String, dynamic> json) => _QrModel(
             (json['backgroundColor'] as num).toInt(),
           ),
   version: (json['version'] as num?)?.toInt() ?? -1,
+  type: $enumDecodeNullable(_$QrTypeEnumMap, json['type']) ?? QrType.create,
 );
 
 Map<String, dynamic> _$QrModelToJson(_QrModel instance) => <String, dynamic>{
   'content': instance.content,
-  'versions': instance.versions,
+  'originalContent': instance.originalContent,
   'eyeStyle': instance.eyeStyle,
   'moduleStyle': instance.moduleStyle,
   'backgroundColor': const ColorConverter().toJson(instance.backgroundColor),
   'version': instance.version,
+  'type': _$QrTypeEnumMap[instance.type]!,
 };
+
+const _$QrTypeEnumMap = {QrType.create: 'create', QrType.clone: 'clone'};
 
 _MyQrEyeStyle _$MyQrEyeStyleFromJson(
   Map<String, dynamic> json,

@@ -14,16 +14,14 @@ class QrCreateCubit extends BaseCubit<QrCreateState> {
 
   final QrRepository _repository;
 
+  void updateQrModel(QrModel model) {
+    emitNormal(currentData.copyWith(qrModel: model));
+  }
+
   void updateQrData(String data) {
     if (data.isNotEmpty) {
       currentData.qrModel.content = data;
-
       emitNormal(currentData);
-      // emitNormal(
-      //   currentData.copyWith(
-      //     qrModel: currentData.qrModel.copyWith(content: data),
-      //   ),
-      // );
     } else {
       emitError("Not a valid text");
     }

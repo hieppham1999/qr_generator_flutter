@@ -34,7 +34,7 @@ class AppRouter {
           builder:
               (_) =>
               QrCreatePage(
-                qrContent: args.qrContent,
+                qrModel: args.qrModel,
               ),
         );
     }

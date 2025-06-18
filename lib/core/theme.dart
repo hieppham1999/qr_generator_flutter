@@ -8,7 +8,8 @@ class AppTheme {
       useMaterial3: true,
       brightness: Brightness.light,
       colorSchemeSeed: seedColor ?? AppColors.defaultThemeColor,
-      textTheme: appTextTheme
+      textTheme: appTextTheme,
+
     );
   }
 
@@ -17,7 +18,10 @@ class AppTheme {
       useMaterial3: true,
       brightness: Brightness.dark,
       colorSchemeSeed: seedColor ?? AppColors.defaultThemeColor,
-      textTheme: appTextTheme
+      textTheme: appTextTheme,
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: seedColor
+      )
     );
   }
 }

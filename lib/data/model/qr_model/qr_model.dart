@@ -11,18 +11,29 @@ const MyQrModuleStyle _defaultModuleStyle = _MyQrModuleStyle();
 
 const MyQrEyeStyle _defaultEyeStyle = MyQrEyeStyle();
 
+enum QrType {
+  create,
+  clone
+}
+
 @unfreezed
 abstract class QrModel with _$QrModel {
+  const QrModel._();
+
   factory QrModel({
     String? content,
-    @Default(-1) int versions,
+    String? originalContent,
     @Default(_defaultEyeStyle) MyQrEyeStyle eyeStyle,
     @Default(_defaultModuleStyle) MyQrModuleStyle moduleStyle,
     @ColorConverter() @Default(Colors.blueAccent) Color backgroundColor,
     @Default(-1) int version,
+    @Default(QrType.create) QrType type,
   }) = _QrModel;
 
   factory QrModel.df() => _QrModel();
+
+  factory QrModel.clone(String? content) =>
+      _QrModel(content: content, originalContent: content, type: QrType.clone,);
 
   factory QrModel.copyWithStyle(QrModel model, QrModel styleFrom) =>
       styleFrom.copyWith(content: model.content);

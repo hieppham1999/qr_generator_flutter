@@ -80,7 +80,7 @@ as bool,
 
 
 class _AppSettings implements AppSettings {
-  const _AppSettings({this.locale = const Locale('en'), this.themeMode = ThemeMode.dark, this.colorSchemeSeed = Colors.blue, this.notificationsEnabled = true});
+  const _AppSettings({this.locale = const Locale('en'), this.themeMode = ThemeMode.dark, this.colorSchemeSeed = Colors.purple, this.notificationsEnabled = true});
   
 
 @override@JsonKey() final  Locale locale;

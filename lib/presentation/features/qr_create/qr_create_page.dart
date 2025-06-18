@@ -10,9 +10,9 @@ import 'package:qr_generator_flutter/presentation/features/qr_create/qr_create_s
 import 'package:qr_generator_flutter/presentation/widgets/app_dialog.dart';
 
 class QrCreatePage extends StatefulWidget {
-  const QrCreatePage({super.key, this.qrContent});
+  const QrCreatePage({super.key, this.qrModel});
 
-  final String? qrContent;
+  final QrModel? qrModel;
 
   @override
   State<QrCreatePage> createState() => _QrCreatePageState();
@@ -21,15 +21,25 @@ class QrCreatePage extends StatefulWidget {
 class _QrCreatePageState extends State<QrCreatePage> {
   final cubit = getIt.get<QrCreateCubit>();
   late final TextEditingController textEditingController =
-      TextEditingController(text: widget.qrContent);
+      TextEditingController(text: widget.qrModel?.content);
 
   bool isContentEditable = true;
-  late bool isQrShow = widget.qrContent?.isNotEmpty ?? false;
+  late bool isQrShow = widget.qrModel?.content?.isNotEmpty ?? false;
+
+  bool get isCreate => widget.qrModel == null;
+
+  @override
+  void initState() {
+    if (!isCreate) {
+      cubit.updateQrModel(widget.qrModel!);
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("QR Create")),
+      appBar: AppBar(title: Text(isCreate ? Languages.translate.createQr : Languages.translate.updateQr)),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: CubitStateBuilder<QrCreateState>(
@@ -66,7 +76,7 @@ class _QrCreatePageState extends State<QrCreatePage> {
                                 vertical: 8.0,
                               ),
                               child: Text(
-                                'Preview',
+                                Languages.translate.preview,
                                 style: TextTheme.of(context).titleLarge,
                               ),
                             ),
@@ -96,13 +106,13 @@ class _QrCreatePageState extends State<QrCreatePage> {
                                         cubit.updateQrStyle(customized);
                                       }
                                     },
-                                    child: Text('Customize...'),
+                                    child: Text('${Languages.translate.customize}...'),
                                   ),
                                 ),
                                 Flexible(
                                   child: ElevatedButton(
                                     onPressed: () => cubit.resetQrStyle(),
-                                    child: Text('Reset'),
+                                    child: Text(Languages.translate.reset),
                                   ),
                                 ),
                               ],
@@ -131,7 +141,7 @@ class _QrCreatePageState extends State<QrCreatePage> {
                           56,
                         ), // fromHeight use double.infinity as width and 40 is the height
                       ),
-                      child: Text('Save'),
+                      child: Text(Languages.translate.save),
                     ),
                 ],
               ),

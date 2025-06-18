@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$QrModel {
 
- String? get content; set content(String? value); int get versions; set versions(int value); MyQrEyeStyle get eyeStyle; set eyeStyle(MyQrEyeStyle value); MyQrModuleStyle get moduleStyle; set moduleStyle(MyQrModuleStyle value);@ColorConverter() Color get backgroundColor;@ColorConverter() set backgroundColor(Color value); int get version; set version(int value);
+ String? get content; set content(String? value); String? get originalContent; set originalContent(String? value); MyQrEyeStyle get eyeStyle; set eyeStyle(MyQrEyeStyle value); MyQrModuleStyle get moduleStyle; set moduleStyle(MyQrModuleStyle value);@ColorConverter() Color get backgroundColor;@ColorConverter() set backgroundColor(Color value); int get version; set version(int value); QrType get type; set type(QrType value);
 /// Create a copy of QrModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -31,7 +31,7 @@ $QrModelCopyWith<QrModel> get copyWith => _$QrModelCopyWithImpl<QrModel>(this as
 
 @override
 String toString() {
-  return 'QrModel(content: $content, versions: $versions, eyeStyle: $eyeStyle, moduleStyle: $moduleStyle, backgroundColor: $backgroundColor, version: $version)';
+  return 'QrModel(content: $content, originalContent: $originalContent, eyeStyle: $eyeStyle, moduleStyle: $moduleStyle, backgroundColor: $backgroundColor, version: $version, type: $type)';
 }
 
 
@@ -42,7 +42,7 @@ abstract mixin class $QrModelCopyWith<$Res>  {
   factory $QrModelCopyWith(QrModel value, $Res Function(QrModel) _then) = _$QrModelCopyWithImpl;
 @useResult
 $Res call({
- String? content, int versions, MyQrEyeStyle eyeStyle, MyQrModuleStyle moduleStyle,@ColorConverter() Color backgroundColor, int version
+ String? content, String? originalContent, MyQrEyeStyle eyeStyle, MyQrModuleStyle moduleStyle,@ColorConverter() Color backgroundColor, int version, QrType type
 });
 
 
@@ -59,15 +59,16 @@ class _$QrModelCopyWithImpl<$Res>
 
 /// Create a copy of QrModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? content = freezed,Object? versions = null,Object? eyeStyle = null,Object? moduleStyle = null,Object? backgroundColor = null,Object? version = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? content = freezed,Object? originalContent = freezed,Object? eyeStyle = null,Object? moduleStyle = null,Object? backgroundColor = null,Object? version = null,Object? type = null,}) {
   return _then(_self.copyWith(
 content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
-as String?,versions: null == versions ? _self.versions : versions // ignore: cast_nullable_to_non_nullable
-as int,eyeStyle: null == eyeStyle ? _self.eyeStyle : eyeStyle // ignore: cast_nullable_to_non_nullable
+as String?,originalContent: freezed == originalContent ? _self.originalContent : originalContent // ignore: cast_nullable_to_non_nullable
+as String?,eyeStyle: null == eyeStyle ? _self.eyeStyle : eyeStyle // ignore: cast_nullable_to_non_nullable
 as MyQrEyeStyle,moduleStyle: null == moduleStyle ? _self.moduleStyle : moduleStyle // ignore: cast_nullable_to_non_nullable
 as MyQrModuleStyle,backgroundColor: null == backgroundColor ? _self.backgroundColor : backgroundColor // ignore: cast_nullable_to_non_nullable
 as Color,version: null == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
-as int,
+as int,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as QrType,
   ));
 }
 /// Create a copy of QrModel
@@ -95,16 +96,17 @@ $MyQrModuleStyleCopyWith<$Res> get moduleStyle {
 /// @nodoc
 @JsonSerializable()
 
-class _QrModel implements QrModel {
-   _QrModel({this.content, this.versions = -1, this.eyeStyle = _defaultEyeStyle, this.moduleStyle = _defaultModuleStyle, @ColorConverter() this.backgroundColor = Colors.blueAccent, this.version = -1});
+class _QrModel extends QrModel {
+   _QrModel({this.content, this.originalContent, this.eyeStyle = _defaultEyeStyle, this.moduleStyle = _defaultModuleStyle, @ColorConverter() this.backgroundColor = Colors.blueAccent, this.version = -1, this.type = QrType.create}): super._();
   factory _QrModel.fromJson(Map<String, dynamic> json) => _$QrModelFromJson(json);
 
 @override  String? content;
-@override@JsonKey()  int versions;
+@override  String? originalContent;
 @override@JsonKey()  MyQrEyeStyle eyeStyle;
 @override@JsonKey()  MyQrModuleStyle moduleStyle;
 @override@JsonKey()@ColorConverter()  Color backgroundColor;
 @override@JsonKey()  int version;
+@override@JsonKey()  QrType type;
 
 /// Create a copy of QrModel
 /// with the given fields replaced by the non-null parameter values.
@@ -121,7 +123,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'QrModel(content: $content, versions: $versions, eyeStyle: $eyeStyle, moduleStyle: $moduleStyle, backgroundColor: $backgroundColor, version: $version)';
+  return 'QrModel(content: $content, originalContent: $originalContent, eyeStyle: $eyeStyle, moduleStyle: $moduleStyle, backgroundColor: $backgroundColor, version: $version, type: $type)';
 }
 
 
@@ -132,7 +134,7 @@ abstract mixin class _$QrModelCopyWith<$Res> implements $QrModelCopyWith<$Res> {
   factory _$QrModelCopyWith(_QrModel value, $Res Function(_QrModel) _then) = __$QrModelCopyWithImpl;
 @override @useResult
 $Res call({
- String? content, int versions, MyQrEyeStyle eyeStyle, MyQrModuleStyle moduleStyle,@ColorConverter() Color backgroundColor, int version
+ String? content, String? originalContent, MyQrEyeStyle eyeStyle, MyQrModuleStyle moduleStyle,@ColorConverter() Color backgroundColor, int version, QrType type
 });
 
 
@@ -149,15 +151,16 @@ class __$QrModelCopyWithImpl<$Res>
 
 /// Create a copy of QrModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? content = freezed,Object? versions = null,Object? eyeStyle = null,Object? moduleStyle = null,Object? backgroundColor = null,Object? version = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? content = freezed,Object? originalContent = freezed,Object? eyeStyle = null,Object? moduleStyle = null,Object? backgroundColor = null,Object? version = null,Object? type = null,}) {
   return _then(_QrModel(
 content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
-as String?,versions: null == versions ? _self.versions : versions // ignore: cast_nullable_to_non_nullable
-as int,eyeStyle: null == eyeStyle ? _self.eyeStyle : eyeStyle // ignore: cast_nullable_to_non_nullable
+as String?,originalContent: freezed == originalContent ? _self.originalContent : originalContent // ignore: cast_nullable_to_non_nullable
+as String?,eyeStyle: null == eyeStyle ? _self.eyeStyle : eyeStyle // ignore: cast_nullable_to_non_nullable
 as MyQrEyeStyle,moduleStyle: null == moduleStyle ? _self.moduleStyle : moduleStyle // ignore: cast_nullable_to_non_nullable
 as MyQrModuleStyle,backgroundColor: null == backgroundColor ? _self.backgroundColor : backgroundColor // ignore: cast_nullable_to_non_nullable
 as Color,version: null == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
-as int,
+as int,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as QrType,
   ));
 }
 
