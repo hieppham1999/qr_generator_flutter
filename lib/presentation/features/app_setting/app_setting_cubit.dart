@@ -3,32 +3,29 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:qr_generator_flutter/base/base_cubit.dart';
 import 'package:qr_generator_flutter/data/app_settings/app_settings.dart';
 import 'package:qr_generator_flutter/base/app_state.dart';
 
 @singleton
-class SettingsCubit extends Cubit<CubitState> {
-  SettingsCubit() : super(NormalState(AppSettings));
-
-  AppSettings appSettings = AppSettings();
+class SettingsCubit extends BaseCubit<AppSettings> {
+  SettingsCubit() : super.normal(AppSettings());
 
   void changeLocale(Locale locale) {
-    appSettings = appSettings.copyWith(locale: locale);
-    emit(NormalState(appSettings));
+    emitNormal(currentData.copyWith(locale: locale));
+
   }
 
   void toggleTheme(ThemeMode mode) {
-    appSettings = appSettings.copyWith(themeMode: mode);
-    emit(NormalState(appSettings));
+    emitNormal(currentData.copyWith(themeMode: mode));
   }
 
   void changeColorSeed(Color color) {
-    appSettings = appSettings.copyWith(colorSchemeSeed: color);
-    emit(NormalState(appSettings));
+    emitNormal(currentData.copyWith(colorSchemeSeed: color));
+
   }
 
   void setNotifications(bool enabled) {
-    appSettings = appSettings.copyWith(notificationsEnabled: enabled);
-    emit(NormalState(appSettings));
+    emitNormal(currentData.copyWith(notificationsEnabled: enabled));
   }
 }

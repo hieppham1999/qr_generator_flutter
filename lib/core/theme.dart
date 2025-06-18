@@ -9,7 +9,9 @@ class AppTheme {
       brightness: Brightness.light,
       colorSchemeSeed: seedColor ?? AppColors.defaultThemeColor,
       textTheme: appTextTheme,
-
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: seedColor,
+      ),
     );
   }
 
@@ -20,8 +22,8 @@ class AppTheme {
       colorSchemeSeed: seedColor ?? AppColors.defaultThemeColor,
       textTheme: appTextTheme,
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: seedColor
-      )
+        backgroundColor: seedColor,
+      ),
     );
   }
 }

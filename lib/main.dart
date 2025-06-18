@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_generator_flutter/core/theme.dart';
+import 'package:qr_generator_flutter/data/app_settings/app_settings.dart';
 import 'package:qr_generator_flutter/data/database/qr_database.dart';
 import 'package:qr_generator_flutter/di/injection.dart';
 import 'package:qr_generator_flutter/navigation/app_navigator.dart';
@@ -34,18 +35,18 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return CubitStateBuilder(
+    return CubitStateBuilder<AppSettings>(
       cubit: settingCubit,
 
-      builder: (_,_) => MaterialApp(
+      builder: (_,state) => MaterialApp(
         title: 'QR Generator Flutter',
         navigatorKey: NavigatorKey.key,
         onGenerateRoute: AppRouter.onGenerateRoute,
         debugShowCheckedModeBanner: false,
-        themeMode: settingCubit.appSettings.themeMode,
-        theme: AppTheme.light(seedColor: settingCubit.appSettings.colorSchemeSeed),
-        darkTheme: AppTheme.dark(seedColor: settingCubit.appSettings.colorSchemeSeed),
-        locale: settingCubit.appSettings.locale,
+        themeMode: state.themeMode,
+        theme: AppTheme.light(seedColor: state.colorSchemeSeed),
+        darkTheme: AppTheme.dark(seedColor: state.colorSchemeSeed),
+        locale: state.locale,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
       ),
