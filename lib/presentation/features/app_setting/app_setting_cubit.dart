@@ -1,18 +1,15 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:qr_generator_flutter/base/base_cubit.dart';
 import 'package:qr_generator_flutter/data/app_settings/app_settings.dart';
-import 'package:qr_generator_flutter/base/app_state.dart';
+import 'package:qr_generator_flutter/data/model/app_language/app_language.dart';
 
 @singleton
 class SettingsCubit extends BaseCubit<AppSettings> {
   SettingsCubit() : super.normal(AppSettings());
 
-  void changeLocale(Locale locale) {
-    emitNormal(currentData.copyWith(locale: locale));
+  void changeLocale(AppLanguage language) {
+    emitNormal(currentData.copyWith(language: language));
 
   }
 

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AppSettings {
 
- Locale get locale; ThemeMode get themeMode; Color get colorSchemeSeed; bool get notificationsEnabled;
+ AppLanguage get language; ThemeMode get themeMode; Color get colorSchemeSeed; bool get notificationsEnabled;
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $AppSettingsCopyWith<AppSettings> get copyWith => _$AppSettingsCopyWithImpl<AppS
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppSettings&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorSchemeSeed, colorSchemeSeed) || other.colorSchemeSeed == colorSchemeSeed)&&(identical(other.notificationsEnabled, notificationsEnabled) || other.notificationsEnabled == notificationsEnabled));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppSettings&&(identical(other.language, language) || other.language == language)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorSchemeSeed, colorSchemeSeed) || other.colorSchemeSeed == colorSchemeSeed)&&(identical(other.notificationsEnabled, notificationsEnabled) || other.notificationsEnabled == notificationsEnabled));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,locale,themeMode,colorSchemeSeed,notificationsEnabled);
+int get hashCode => Object.hash(runtimeType,language,themeMode,colorSchemeSeed,notificationsEnabled);
 
 @override
 String toString() {
-  return 'AppSettings(locale: $locale, themeMode: $themeMode, colorSchemeSeed: $colorSchemeSeed, notificationsEnabled: $notificationsEnabled)';
+  return 'AppSettings(language: $language, themeMode: $themeMode, colorSchemeSeed: $colorSchemeSeed, notificationsEnabled: $notificationsEnabled)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $AppSettingsCopyWith<$Res>  {
   factory $AppSettingsCopyWith(AppSettings value, $Res Function(AppSettings) _then) = _$AppSettingsCopyWithImpl;
 @useResult
 $Res call({
- Locale locale, ThemeMode themeMode, Color colorSchemeSeed, bool notificationsEnabled
+ AppLanguage language, ThemeMode themeMode, Color colorSchemeSeed, bool notificationsEnabled
 });
 
 
@@ -63,10 +63,10 @@ class _$AppSettingsCopyWithImpl<$Res>
 
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? locale = null,Object? themeMode = null,Object? colorSchemeSeed = null,Object? notificationsEnabled = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? language = null,Object? themeMode = null,Object? colorSchemeSeed = null,Object? notificationsEnabled = null,}) {
   return _then(_self.copyWith(
-locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
-as Locale,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
+language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
+as AppLanguage,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
 as ThemeMode,colorSchemeSeed: null == colorSchemeSeed ? _self.colorSchemeSeed : colorSchemeSeed // ignore: cast_nullable_to_non_nullable
 as Color,notificationsEnabled: null == notificationsEnabled ? _self.notificationsEnabled : notificationsEnabled // ignore: cast_nullable_to_non_nullable
 as bool,
@@ -80,10 +80,10 @@ as bool,
 
 
 class _AppSettings implements AppSettings {
-  const _AppSettings({this.locale = const Locale('en'), this.themeMode = ThemeMode.dark, this.colorSchemeSeed = Colors.purple, this.notificationsEnabled = true});
+  const _AppSettings({this.language = AppLanguage.english, this.themeMode = ThemeMode.dark, this.colorSchemeSeed = Colors.purple, this.notificationsEnabled = true});
   
 
-@override@JsonKey() final  Locale locale;
+@override@JsonKey() final  AppLanguage language;
 @override@JsonKey() final  ThemeMode themeMode;
 @override@JsonKey() final  Color colorSchemeSeed;
 @override@JsonKey() final  bool notificationsEnabled;
@@ -98,16 +98,16 @@ _$AppSettingsCopyWith<_AppSettings> get copyWith => __$AppSettingsCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppSettings&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorSchemeSeed, colorSchemeSeed) || other.colorSchemeSeed == colorSchemeSeed)&&(identical(other.notificationsEnabled, notificationsEnabled) || other.notificationsEnabled == notificationsEnabled));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppSettings&&(identical(other.language, language) || other.language == language)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorSchemeSeed, colorSchemeSeed) || other.colorSchemeSeed == colorSchemeSeed)&&(identical(other.notificationsEnabled, notificationsEnabled) || other.notificationsEnabled == notificationsEnabled));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,locale,themeMode,colorSchemeSeed,notificationsEnabled);
+int get hashCode => Object.hash(runtimeType,language,themeMode,colorSchemeSeed,notificationsEnabled);
 
 @override
 String toString() {
-  return 'AppSettings(locale: $locale, themeMode: $themeMode, colorSchemeSeed: $colorSchemeSeed, notificationsEnabled: $notificationsEnabled)';
+  return 'AppSettings(language: $language, themeMode: $themeMode, colorSchemeSeed: $colorSchemeSeed, notificationsEnabled: $notificationsEnabled)';
 }
 
 
@@ -118,7 +118,7 @@ abstract mixin class _$AppSettingsCopyWith<$Res> implements $AppSettingsCopyWith
   factory _$AppSettingsCopyWith(_AppSettings value, $Res Function(_AppSettings) _then) = __$AppSettingsCopyWithImpl;
 @override @useResult
 $Res call({
- Locale locale, ThemeMode themeMode, Color colorSchemeSeed, bool notificationsEnabled
+ AppLanguage language, ThemeMode themeMode, Color colorSchemeSeed, bool notificationsEnabled
 });
 
 
@@ -135,10 +135,10 @@ class __$AppSettingsCopyWithImpl<$Res>
 
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? locale = null,Object? themeMode = null,Object? colorSchemeSeed = null,Object? notificationsEnabled = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? language = null,Object? themeMode = null,Object? colorSchemeSeed = null,Object? notificationsEnabled = null,}) {
   return _then(_AppSettings(
-locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
-as Locale,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
+language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
+as AppLanguage,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
 as ThemeMode,colorSchemeSeed: null == colorSchemeSeed ? _self.colorSchemeSeed : colorSchemeSeed // ignore: cast_nullable_to_non_nullable
 as Color,notificationsEnabled: null == notificationsEnabled ? _self.notificationsEnabled : notificationsEnabled // ignore: cast_nullable_to_non_nullable
 as bool,

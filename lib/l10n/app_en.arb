@@ -10,5 +10,10 @@
   "customize": "Customize",
   "preview": "Preview",
   "createQr": "Qr Create",
-  "updateQr": "Qr Update"
+  "updateQr": "Qr Update",
+  "english": "English",
+  "english_native": "English",
+  "vietnamese": "Vietnamese",
+  "vietnamese_native": "Tiếng Việt"
+
 }
