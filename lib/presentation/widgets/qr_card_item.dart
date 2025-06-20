@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:qr_generator_flutter/data/model/qr_model/qr_model.dart';
 import 'package:qr_generator_flutter/navigation/app_navigator.dart';
 import 'package:qr_generator_flutter/navigation/app_routes.dart';
 import 'package:qr_generator_flutter/presentation/viewmodels/qr_view_data.dart';
@@ -22,7 +23,7 @@ class QrCard extends StatelessWidget {
         title: Text(content.content ?? ''),
         subtitle: Text('Updated: ${DateFormat.yMd().format(qr.updatedAt)}'),
         onTap: () {
-          NavController.pushNamed(QrCreateRoute(qrModel: qr.model));
+          NavController.pushNamed(QrCreateRoute(id: qr.id, qrModel: qr.model.copyWith(type: QrType.clone)));
         },
         trailing: QrImageView(
           data: qr.model.content ?? '',

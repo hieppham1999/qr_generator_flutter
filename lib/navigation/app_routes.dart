@@ -19,8 +19,9 @@ class QrScanRoute extends AppRoutes {
 }
 
 class QrCreateRoute extends AppRoutes {
+  final String? id;
   final QrModel? qrModel;
 
-  const QrCreateRoute({this.qrModel,})
+  const QrCreateRoute({this.id, this.qrModel,})
       : super(path: '/qr-create');
 }

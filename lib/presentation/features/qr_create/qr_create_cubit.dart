@@ -40,12 +40,21 @@ class QrCreateCubit extends BaseCubit<QrCreateState> {
     );
   }
 
-  Future<bool> saveQr() async {
+  Future<bool> saveQr([String? id]) async {
     try {
-      _repository.saveQr(currentData.qrModel);
-      showSnackBar(NavigatorKey.key.currentContext!,
-          message: "Qr Saved");
-      return true;
+      if (id != null) {
+        await _repository.updateQr(id, currentData.qrModel);
+        showSnackBar(NavigatorKey.key.currentContext!,
+            message: "Qr Updated");
+        return true;
+      } else {
+        _repository.saveQr(currentData.qrModel.copyWith(
+          originalContent: currentData.qrModel.content,
+        ));
+        showSnackBar(NavigatorKey.key.currentContext!,
+            message: "Qr Created");
+        return true;
+      }
     } on Exception catch (e) {
       appLogger.e(e.toString());
 

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$QrCreateState {
 
- QrModel get qrModel;
+ String? get id; QrModel get qrModel;
 /// Create a copy of QrCreateState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $QrCreateStateCopyWith<QrCreateState> get copyWith => _$QrCreateStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QrCreateState&&(identical(other.qrModel, qrModel) || other.qrModel == qrModel));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is QrCreateState&&(identical(other.id, id) || other.id == id)&&(identical(other.qrModel, qrModel) || other.qrModel == qrModel));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,qrModel);
+int get hashCode => Object.hash(runtimeType,id,qrModel);
 
 @override
 String toString() {
-  return 'QrCreateState(qrModel: $qrModel)';
+  return 'QrCreateState(id: $id, qrModel: $qrModel)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $QrCreateStateCopyWith<$Res>  {
   factory $QrCreateStateCopyWith(QrCreateState value, $Res Function(QrCreateState) _then) = _$QrCreateStateCopyWithImpl;
 @useResult
 $Res call({
- QrModel qrModel
+ String? id, QrModel qrModel
 });
 
 
@@ -63,9 +63,10 @@ class _$QrCreateStateCopyWithImpl<$Res>
 
 /// Create a copy of QrCreateState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? qrModel = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? qrModel = null,}) {
   return _then(_self.copyWith(
-qrModel: null == qrModel ? _self.qrModel : qrModel // ignore: cast_nullable_to_non_nullable
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,qrModel: null == qrModel ? _self.qrModel : qrModel // ignore: cast_nullable_to_non_nullable
 as QrModel,
   ));
 }
@@ -86,9 +87,10 @@ $QrModelCopyWith<$Res> get qrModel {
 
 
 class _QrCreateState implements QrCreateState {
-   _QrCreateState({required this.qrModel});
+   _QrCreateState({this.id, required this.qrModel});
   
 
+@override final  String? id;
 @override final  QrModel qrModel;
 
 /// Create a copy of QrCreateState
@@ -101,16 +103,16 @@ _$QrCreateStateCopyWith<_QrCreateState> get copyWith => __$QrCreateStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _QrCreateState&&(identical(other.qrModel, qrModel) || other.qrModel == qrModel));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _QrCreateState&&(identical(other.id, id) || other.id == id)&&(identical(other.qrModel, qrModel) || other.qrModel == qrModel));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,qrModel);
+int get hashCode => Object.hash(runtimeType,id,qrModel);
 
 @override
 String toString() {
-  return 'QrCreateState(qrModel: $qrModel)';
+  return 'QrCreateState(id: $id, qrModel: $qrModel)';
 }
 
 
@@ -121,7 +123,7 @@ abstract mixin class _$QrCreateStateCopyWith<$Res> implements $QrCreateStateCopy
   factory _$QrCreateStateCopyWith(_QrCreateState value, $Res Function(_QrCreateState) _then) = __$QrCreateStateCopyWithImpl;
 @override @useResult
 $Res call({
- QrModel qrModel
+ String? id, QrModel qrModel
 });
 
 
@@ -138,9 +140,10 @@ class __$QrCreateStateCopyWithImpl<$Res>
 
 /// Create a copy of QrCreateState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? qrModel = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? qrModel = null,}) {
   return _then(_QrCreateState(
-qrModel: null == qrModel ? _self.qrModel : qrModel // ignore: cast_nullable_to_non_nullable
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,qrModel: null == qrModel ? _self.qrModel : qrModel // ignore: cast_nullable_to_non_nullable
 as QrModel,
   ));
 }

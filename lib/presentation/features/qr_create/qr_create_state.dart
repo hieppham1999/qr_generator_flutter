@@ -5,7 +5,7 @@ part 'qr_create_state.freezed.dart';
 
 @freezed
 abstract class QrCreateState with _$QrCreateState {
-  factory QrCreateState({required QrModel qrModel}) = _QrCreateState;
+  factory QrCreateState({String? id, required QrModel qrModel}) = _QrCreateState;
 
   factory QrCreateState.df() => _QrCreateState(qrModel: QrModel());
 }

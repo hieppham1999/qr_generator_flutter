@@ -8,10 +8,13 @@ import 'package:qr_generator_flutter/presentation/features/qr_create/components/
 import 'package:qr_generator_flutter/presentation/features/qr_create/qr_create_cubit.dart';
 import 'package:qr_generator_flutter/presentation/features/qr_create/qr_create_state.dart';
 import 'package:qr_generator_flutter/presentation/widgets/app_dialog.dart';
+import 'package:qr_generator_flutter/presentation/widgets/app_textfield.dart';
+import 'package:qr_generator_flutter/presentation/widgets/read_only_text_box.dart';
 
 class QrCreatePage extends StatefulWidget {
-  const QrCreatePage({super.key, this.qrModel});
+  const QrCreatePage({super.key, this.qrId, this.qrModel});
 
+  final String? qrId;
   final QrModel? qrModel;
 
   @override
@@ -39,7 +42,13 @@ class _QrCreatePageState extends State<QrCreatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(isCreate ? Languages.translate.createQr : Languages.translate.updateQr)),
+      appBar: AppBar(
+        title: Text(
+          isCreate
+              ? Languages.translate.createQr
+              : Languages.translate.updateQr,
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: CubitStateBuilder<QrCreateState>(
@@ -63,7 +72,12 @@ class _QrCreatePageState extends State<QrCreatePage> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildTextField(),
+                  if (qrModel.type == QrType.clone)
+                    ReadOnlyTextBox(
+                      text: qrModel.originalContent ?? '',
+                      margin: EdgeInsets.only(bottom: 8),
+                    ),
+                  _buildQrContentInput(),
 
                   if (isQrShow)
                     Expanded(
@@ -106,7 +120,9 @@ class _QrCreatePageState extends State<QrCreatePage> {
                                         cubit.updateQrStyle(customized);
                                       }
                                     },
-                                    child: Text('${Languages.translate.customize}...'),
+                                    child: Text(
+                                      '${Languages.translate.customize}...',
+                                    ),
                                   ),
                                 ),
                                 Flexible(
@@ -124,9 +140,9 @@ class _QrCreatePageState extends State<QrCreatePage> {
 
                   if (isQrShow)
                     ElevatedButton(
-                      onPressed: () async{
+                      onPressed: () async {
                         Navigator.pop(context);
-                        final result = await cubit.saveQr();
+                        final result = await cubit.saveQr(widget.qrId);
                         // if (result) {
                         //   await Future.delayed(const Duration(milliseconds: 500));
                         //   Navigator.pop(context);
@@ -152,43 +168,24 @@ class _QrCreatePageState extends State<QrCreatePage> {
     );
   }
 
-  Widget _buildTextField() {
-    return AnimatedContainer(
-      duration: Duration(milliseconds: 300),
-      padding: EdgeInsets.symmetric(horizontal: 12),
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
+  Widget _buildQrContentInput() {
+    return AppTextField(
+      isReadOnly: isContentEditable,
+      controller: textEditingController,
+      onSubmit: (value) => onSubmit(value),
+      suffixIcon: IconButton(
+        icon: Icon(
+          isContentEditable ? Icons.check : Icons.edit,
           color: isContentEditable ? Colors.blue : Colors.grey,
-          width: 0.5,
         ),
-      ),
-      child: TextField(
-        controller: textEditingController,
-        readOnly: !isContentEditable,
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-        onSubmitted: (value) => onSubmit(value),
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: 'Enter text here...',
-          contentPadding: EdgeInsets.symmetric(vertical: 12),
-          suffixIcon: IconButton(
-            icon: Icon(
-              isContentEditable ? Icons.check : Icons.edit,
-              color: isContentEditable ? Colors.blue : Colors.grey,
-            ),
-            onPressed: () {
-              if (isContentEditable) {
-                onSubmit(textEditingController.text);
-              } else {
-                setEditable(!isContentEditable);
-              }
-            },
-            tooltip: isContentEditable ? 'Submit' : 'Edit',
-          ),
-        ),
-        cursorColor: Colors.blue,
+        onPressed: () {
+          if (isContentEditable) {
+            onSubmit(textEditingController.text);
+          } else {
+            setEditable(!isContentEditable);
+          }
+        },
+        tooltip: isContentEditable ? 'Submit' : 'Edit',
       ),
     );
   }

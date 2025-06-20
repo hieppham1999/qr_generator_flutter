@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_generator_flutter/base/bloc_state_builder.dart';
+import 'package:qr_generator_flutter/data/model/qr_model/qr_model.dart';
 import 'package:qr_generator_flutter/data/model/qr_scan_result/qr_scan_result.dart';
 import 'package:qr_generator_flutter/di/injection.dart';
+import 'package:qr_generator_flutter/navigation/app_navigator.dart';
+import 'package:qr_generator_flutter/navigation/app_routes.dart';
 import 'package:qr_generator_flutter/presentation/features/qr_scan/qr_scan_cubit.dart';
 import 'package:qr_generator_flutter/presentation/features/qr_scan/qr_scan_state.dart';
+import 'package:qr_generator_flutter/presentation/widgets/app_tile.dart';
 import 'package:qr_generator_flutter/utils/app_logger.dart';
 
 class QrScannerPage extends StatefulWidget {
@@ -19,8 +23,10 @@ class _QrScannerPageState extends State<QrScannerPage> {
   final MobileScannerController cameraController = MobileScannerController(
     // returnImage: true,
     // cameraResolution: Size(320, 320),
-    detectionSpeed: DetectionSpeed.unrestricted,
+    detectionSpeed: DetectionSpeed.noDuplicates,
   );
+
+  final cubit = getIt.get<QrScanCubit>();
 
   @override
   void dispose() {
@@ -30,8 +36,6 @@ class _QrScannerPageState extends State<QrScannerPage> {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = getIt.get<QrScanCubit>();
-
     return CubitStateBuilder<QrScanState>(
       cubit: cubit,
       builder:
@@ -125,28 +129,44 @@ class _QrScannerPageState extends State<QrScannerPage> {
                   separatorBuilder: (_, __) => const Divider(),
                   itemBuilder: (context, index) {
                     final qr = qrList[index];
-                    return ListTile(
-                      title: Text(qr.barcode.displayValue ?? ''),
-                      // subtitle: Text(
-                      //   'Scanned on ${qr.scannedAt.toLocal()}',
-                      //   style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                      // ),
-                      leading:
-                          qr.image != null
-                              ? Image.memory(qr.image!)
-                              : const Icon(Icons.qr_code),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.copy),
-                        onPressed: () {
-                          Clipboard.setData(
-                            ClipboardData(text: qr.barcode.rawValue ?? ''),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Copied to clipboard'),
-                            ),
-                          );
-                        },
+                    return AppTile(
+                      label: qr.barcode.displayValue ?? '',
+                      trailing: Row(
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.copy),
+                            onPressed: () {
+                              Clipboard.setData(
+                                ClipboardData(text: qr.barcode.rawValue ?? ''),
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Copied to clipboard'),
+                                ),
+                              );
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.edit),
+                            onPressed: () {
+                              cameraController.pause();
+                              NavController.pushNamed(
+                                QrCreateRoute(
+                                  qrModel: QrModel.clone(qr.barcode.rawValue),
+                                ),
+                              )?.then((_) => cameraController.start());
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.save),
+                            onPressed: () {
+                              cubit.saveQr(qr.barcode.rawValue);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Qr saved!')),
+                              );
+                            },
+                          ),
+                        ],
                       ),
                     );
                   },

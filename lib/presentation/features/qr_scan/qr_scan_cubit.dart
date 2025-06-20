@@ -30,7 +30,10 @@ class QrScanCubit extends BaseCubit<QrScanState> {
         ),
       );
 
-      _repository.saveQr(QrModel(content: barcode.rawValue));
     }
+  }
+
+  void saveQr(String? rawValue) {
+    _repository.saveQr(QrModel(content: rawValue));
   }
 }
