@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_generator_flutter/core/theme.dart';
-import 'package:qr_generator_flutter/data/app_settings/app_settings.dart';
 import 'package:qr_generator_flutter/data/database/qr_database.dart';
+import 'package:qr_generator_flutter/data/model/app_settings/app_settings.dart';
 import 'package:qr_generator_flutter/di/injection.dart';
 import 'package:qr_generator_flutter/navigation/app_navigator.dart';
 import 'package:qr_generator_flutter/navigation/app_router.dart';
@@ -31,6 +31,12 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final settingCubit = getIt.get<SettingsCubit>();
+
+  @override
+  void initState() {
+    settingCubit.loadSetting();
+    super.initState();
+  }
 
   // This widget is the root of your application.
   @override

@@ -1,11 +1,12 @@
 // qr_database.dart
 import 'dart:async';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:qr_generator_flutter/data/dao/qr_dao.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:injectable/injectable.dart';
 import 'package:path/path.dart';
 
-@lazySingleton
+@singleton
 class QrDatabase {
   static const _dbName = 'qr_app.db';
   static const _dbVersion = 1;

@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:qr_generator_flutter/base/bloc_state_builder.dart';
-import 'package:qr_generator_flutter/data/app_settings/app_settings.dart';
 import 'package:qr_generator_flutter/data/model/app_language/app_language.dart';
+import 'package:qr_generator_flutter/data/model/app_settings/app_settings.dart';
 import 'package:qr_generator_flutter/di/injection.dart';
 import 'package:qr_generator_flutter/presentation/features/app_setting/app_setting_cubit.dart';
 import 'package:qr_generator_flutter/presentation/widgets/app_dropdown.dart';
 import 'package:qr_generator_flutter/presentation/widgets/app_tile.dart';
 import 'package:qr_generator_flutter/presentation/widgets/color_picker_dot.dart';
 
-class AppSettingPage extends StatelessWidget {
+class AppSettingPage extends StatefulWidget {
   const AppSettingPage({super.key});
 
   @override
+  State<AppSettingPage> createState() => _AppSettingPageState();
+}
+
+class _AppSettingPageState extends State<AppSettingPage> {
+
+  final cubit = getIt.get<SettingsCubit>();
+
+  @override
   Widget build(BuildContext context) {
-
-    final cubit = getIt.get<SettingsCubit>();
-
     return Scaffold(
       appBar: AppBar(),
       body: Padding(

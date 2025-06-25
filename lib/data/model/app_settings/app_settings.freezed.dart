@@ -12,16 +12,19 @@ part of 'app_settings.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
+
 /// @nodoc
 mixin _$AppSettings {
 
- AppLanguage get language; ThemeMode get themeMode; Color get colorSchemeSeed; bool get notificationsEnabled;
+ AppLanguage get language; ThemeMode get themeMode;@ColorConverter() Color get colorSchemeSeed; bool get notificationsEnabled;
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $AppSettingsCopyWith<AppSettings> get copyWith => _$AppSettingsCopyWithImpl<AppSettings>(this as AppSettings, _$identity);
 
+  /// Serializes this AppSettings to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
@@ -29,7 +32,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is AppSettings&&(identical(other.language, language) || other.language == language)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorSchemeSeed, colorSchemeSeed) || other.colorSchemeSeed == colorSchemeSeed)&&(identical(other.notificationsEnabled, notificationsEnabled) || other.notificationsEnabled == notificationsEnabled));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,language,themeMode,colorSchemeSeed,notificationsEnabled);
 
@@ -46,7 +49,7 @@ abstract mixin class $AppSettingsCopyWith<$Res>  {
   factory $AppSettingsCopyWith(AppSettings value, $Res Function(AppSettings) _then) = _$AppSettingsCopyWithImpl;
 @useResult
 $Res call({
- AppLanguage language, ThemeMode themeMode, Color colorSchemeSeed, bool notificationsEnabled
+ AppLanguage language, ThemeMode themeMode,@ColorConverter() Color colorSchemeSeed, bool notificationsEnabled
 });
 
 
@@ -77,15 +80,15 @@ as bool,
 
 
 /// @nodoc
+@JsonSerializable()
 
-
-class _AppSettings implements AppSettings {
-  const _AppSettings({this.language = AppLanguage.english, this.themeMode = ThemeMode.dark, this.colorSchemeSeed = Colors.purple, this.notificationsEnabled = true});
-  
+class _AppSettings extends AppSettings {
+  const _AppSettings({this.language = defaultLanguage, this.themeMode = defaultThemeMode, @ColorConverter() this.colorSchemeSeed = defaultColorScheme, this.notificationsEnabled = defaultNotificationsEnabled}): super._();
+  factory _AppSettings.fromJson(Map<String, dynamic> json) => _$AppSettingsFromJson(json);
 
 @override@JsonKey() final  AppLanguage language;
 @override@JsonKey() final  ThemeMode themeMode;
-@override@JsonKey() final  Color colorSchemeSeed;
+@override@JsonKey()@ColorConverter() final  Color colorSchemeSeed;
 @override@JsonKey() final  bool notificationsEnabled;
 
 /// Create a copy of AppSettings
@@ -94,14 +97,17 @@ class _AppSettings implements AppSettings {
 @pragma('vm:prefer-inline')
 _$AppSettingsCopyWith<_AppSettings> get copyWith => __$AppSettingsCopyWithImpl<_AppSettings>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$AppSettingsToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppSettings&&(identical(other.language, language) || other.language == language)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.colorSchemeSeed, colorSchemeSeed) || other.colorSchemeSeed == colorSchemeSeed)&&(identical(other.notificationsEnabled, notificationsEnabled) || other.notificationsEnabled == notificationsEnabled));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,language,themeMode,colorSchemeSeed,notificationsEnabled);
 
@@ -118,7 +124,7 @@ abstract mixin class _$AppSettingsCopyWith<$Res> implements $AppSettingsCopyWith
   factory _$AppSettingsCopyWith(_AppSettings value, $Res Function(_AppSettings) _then) = __$AppSettingsCopyWithImpl;
 @override @useResult
 $Res call({
- AppLanguage language, ThemeMode themeMode, Color colorSchemeSeed, bool notificationsEnabled
+ AppLanguage language, ThemeMode themeMode,@ColorConverter() Color colorSchemeSeed, bool notificationsEnabled
 });
 
 

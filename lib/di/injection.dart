@@ -3,6 +3,8 @@ import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:qr_generator_flutter/data/database/qr_database.dart';
 import 'package:qr_generator_flutter/di/injection.config.dart';
+import 'package:qr_generator_flutter/utils/app_shared_preference.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
 final getIt = GetIt.instance;
@@ -14,6 +16,7 @@ final getIt = GetIt.instance;
 Future<void> configureDependencies(String environment) async {
   await getIt.allReady();
   getIt.init(environment: environment);
+
 }
 
 @module
@@ -39,4 +42,12 @@ abstract class LoggerModule {
       printEmojis: false,
     ),
   );
+}
+
+// @Order(-1)
+@module
+abstract class SharedPreferenceModule {
+  @singleton
+  Future<SharedPreferences> get prefs async => SharedPreferences.getInstance();
+
 }

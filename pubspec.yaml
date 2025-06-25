@@ -34,6 +34,7 @@ dependencies:
     sdk: flutter
   another_flushbar: ^1.12.30
   auto_size_text_field: ^2.2.4
+  collection: ^1.19.1
   convex_bottom_bar: ^3.2.0
   equatable: ^2.0.7
   intl:
@@ -51,6 +52,8 @@ dependencies:
   # Freezed
   freezed: ^3.0.6
   freezed_annotation: ^3.0.0
+
+  shared_preferences: ^2.5.3
 
   path: ^1.9.1
   sqflite: ^2.4.2

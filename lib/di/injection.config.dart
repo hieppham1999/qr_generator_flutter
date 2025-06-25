@@ -17,6 +17,8 @@ import 'package:qr_generator_flutter/data/data_store/qr_local_ds.dart' as _i606;
 import 'package:qr_generator_flutter/data/database/qr_database.dart' as _i549;
 import 'package:qr_generator_flutter/data/mapper/qr_view_data_mapper.dart'
     as _i386;
+import 'package:qr_generator_flutter/data/repository/app_setting_repository.dart'
+    as _i171;
 import 'package:qr_generator_flutter/data/repository/qr_repositories.dart'
     as _i826;
 import 'package:qr_generator_flutter/di/injection.dart' as _i761;
@@ -31,6 +33,8 @@ import 'package:qr_generator_flutter/presentation/features/qr_create/qr_create_c
 import 'package:qr_generator_flutter/presentation/features/qr_scan/qr_scan_cubit.dart'
     as _i745;
 import 'package:qr_generator_flutter/utils/app_logger.dart' as _i183;
+import 'package:qr_generator_flutter/utils/app_shared_preference.dart' as _i510;
+import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 const String _dev = 'dev';
 const String _prod = 'prod';
@@ -42,22 +46,36 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    final sharedPreferenceModule = _$SharedPreferenceModule();
     final loggerModule = _$LoggerModule();
     gh.factory<_i386.QrViewDataMapper>(() => _i386.QrViewDataMapper());
-    gh.singleton<_i0.SettingsCubit>(() => _i0.SettingsCubit());
+    gh.singletonAsync<_i460.SharedPreferences>(
+      () => sharedPreferenceModule.prefs,
+    );
+    gh.singleton<_i549.QrDatabase>(() => _i549.QrDatabase());
     gh.singleton<_i585.MainScreenCubit>(() => _i585.MainScreenCubit());
-    gh.lazySingleton<_i549.QrDatabase>(() => _i549.QrDatabase());
     gh.lazySingleton<_i974.Logger>(
       () => loggerModule.devLogger,
       registerFor: {_dev},
+    );
+    gh.factory<_i171.AppSettingRepository>(
+      () => _i171.AppSettingRepositoryImpl(),
     );
     gh.lazySingleton<_i974.Logger>(
       () => loggerModule.prodLogger,
       registerFor: {_prod},
     );
     gh.factory<_i87.QrDao>(() => _i87.QrDao(gh<_i549.QrDatabase>()));
+    gh.singletonAsync<_i510.AppSharedPreference>(
+      () async =>
+          _i510.AppSharedPreference(await getAsync<_i460.SharedPreferences>()),
+      dependsOn: [_i460.SharedPreferences],
+    );
     gh.factory<_i606.QrLocalDataSource>(
       () => _i606.QrLocalDataSource(gh<_i87.QrDao>()),
+    );
+    gh.singleton<_i0.SettingsCubit>(
+      () => _i0.SettingsCubit(gh<_i171.AppSettingRepository>()),
     );
     gh.factory<_i826.QrRepository>(
       () => _i826.QrRepositoryImpl(gh<_i606.QrLocalDataSource>()),
@@ -75,5 +93,7 @@ extension GetItInjectableX on _i174.GetIt {
     return this;
   }
 }
+
+class _$SharedPreferenceModule extends _i761.SharedPreferenceModule {}
 
 class _$LoggerModule extends _i761.LoggerModule {}
