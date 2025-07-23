@@ -1,6 +1,7 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_generator_flutter/core/languages.dart';
+import 'package:qr_generator_flutter/utils/functions.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
   const AppBottomNavigationBar({
@@ -17,9 +18,10 @@ class AppBottomNavigationBar extends StatelessWidget {
     return ConvexAppBar(
       initialActiveIndex: currentIndex,
       onTap: onItemTapped,
+      height: 60,
       style: TabStyle.fixedCircle,
-      activeColor: Colors.amber[800],
-      color: Colors.white,
+      activeColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor?.inverted,
+      color: Theme.of(context).bottomNavigationBarTheme.backgroundColor?.remarkable,
       backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
       // Ensures all items are visible and labels shown
       items: [

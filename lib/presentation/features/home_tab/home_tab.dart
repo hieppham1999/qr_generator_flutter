@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:qr_generator_flutter/base/bloc_state_builder.dart';
 import 'package:qr_generator_flutter/di/injection.dart';
 import 'package:qr_generator_flutter/navigation/app_navigator.dart';
@@ -17,10 +18,19 @@ class HomeTab extends StatefulWidget {
 class _HomeTabState extends State<HomeTab> {
   final cubit = getIt.get<HomeTabCubit>();
 
+  final RefreshController _refreshController = RefreshController(
+    initialRefresh: false,
+  );
+
   @override
   void initState() {
     cubit.init();
     super.initState();
+  }
+
+  void _onRefresh() async {
+    await cubit.loadQrList();
+    _refreshController.refreshCompleted();
   }
 
   @override
@@ -30,47 +40,42 @@ class _HomeTabState extends State<HomeTab> {
       builder:
           (_, state) =>
               state.listQr.isEmpty
-                  ? Center(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        NavController.pushNamed(QrCreateRoute());
-                      },
-                      child: Text("Create QR"),
-                    ),
-                  )
+                  ? Center(child: buildCreateQrButton())
                   : Column(
                     children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          NavController.pushNamed(QrCreateRoute());
-                        },
-                        child: Text("Create QR"),
-                      ),
+                      buildCreateQrButton(),
                       Expanded(
-                        child: ListView.builder(
-                          itemCount: state.listQr.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            final item = state.listQr[index];
+                        child: SmartRefresher(
+                          header: WaterDropHeader(),
+                          onRefresh: _onRefresh,
+                          controller: _refreshController,
+                          child: ListView.builder(
+                            itemCount: state.listQr.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              final item = state.listQr[index];
 
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Padding(
-                                //   padding: const EdgeInsets.all(8.0),
-                                //   child: Text(
-                                //     item.createdAt.toString(),
-                                //     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                                //   ),
-                                // ),
-                                QrCard(qr: item),
-                              ],
-                            );
-                          },
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  QrCard(qr: item),
+                                ],
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
                   ),
+    );
+  }
+
+  ElevatedButton buildCreateQrButton() {
+    return ElevatedButton(
+      onPressed: () {
+        NavController.pushNamed(QrCreateRoute());
+      },
+      child: Text("Create QR"),
     );
   }
 }

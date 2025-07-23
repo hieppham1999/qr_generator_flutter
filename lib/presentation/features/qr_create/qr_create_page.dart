@@ -72,7 +72,7 @@ class _QrCreatePageState extends State<QrCreatePage> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (qrModel.type == QrType.clone)
+                  if (qrModel.type == QrType.clone && qrModel.originalContent?.isNotEmpty == true)
                     ReadOnlyTextBox(
                       text: qrModel.originalContent ?? '',
                       margin: EdgeInsets.only(bottom: 8),
