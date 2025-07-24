@@ -15,24 +15,31 @@ class QrCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final content = qr.model;
 
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      elevation: 2,
-      child: ListTile(
-        title: Text(content.content ?? ''),
-        subtitle: Text('Updated: ${DateFormat.yMd().format(qr.updatedAt)}'),
-        onTap: () {
-          NavController.pushNamed(QrCreateRoute(id: qr.id, qrModel: qr.model.copyWith(type: QrType.clone)));
-        },
-        trailing: QrImageView(
-          data: qr.model.content ?? '',
-          version: qr.model.version,
-          eyeStyle: qr.model.eyeStyle.toLib(),
-          dataModuleStyle: qr.model.moduleStyle.toLib(),
-          embeddedImageEmitsError: true,
-          size: 50,
-          backgroundColor: qr.model.backgroundColor,
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+      child: Card(
+        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        // color: Theme.of(context).,
+        elevation: 2,
+        child: ListTile(
+          title: Text(content.content ?? ''),
+          subtitle: Text('Updated: ${DateFormat.yMd().format(qr.updatedAt)}'),
+          onTap: () {
+            NavController.pushNamed(QrCreateRoute(id: qr.id, qrModel: qr.model.copyWith(type: QrType.clone)));
+          },
+          trailing: ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: QrImageView(
+              data: qr.model.content ?? '',
+              version: qr.model.version,
+              eyeStyle: qr.model.eyeStyle.toLib(),
+              dataModuleStyle: qr.model.moduleStyle.toLib(),
+              embeddedImageEmitsError: true,
+              size: 50,
+              backgroundColor: qr.model.backgroundColor,
+            ),
+          ),
         ),
       ),
     );

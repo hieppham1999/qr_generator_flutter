@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 
-enum ItemWeightType {
-  labelBias,
-  valueBias,
-  byRatio,
-}
+enum ItemWeightType { labelBias, valueBias, byRatio }
 
 class AppTile extends StatelessWidget {
-  const AppTile(
-      {super.key,
-        required this.label,
-        this.onValueTap,
-        this.trailing,
-        this.labelFlex = 1,
-        this.valueFlex = 1,
-        this.weightType = ItemWeightType.labelBias,
-        this.isBold = false,
-        this.crossAxisAlignment = CrossAxisAlignment.center,
-        this.labelSize = 14,
-        this.labelColor = const Color(0xFFD7D7D7)});
+  const AppTile({
+    super.key,
+    required this.label,
+    this.onValueTap,
+    this.trailing,
+    this.labelFlex = 1,
+    this.valueFlex = 1,
+    this.weightType = ItemWeightType.labelBias,
+    this.isBold = false,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.labelSize,
+    this.labelColor,
+  });
 
   final VoidCallback? onValueTap;
   final String label;
@@ -28,8 +25,8 @@ class AppTile extends StatelessWidget {
   final int valueFlex;
   final bool isBold;
   final CrossAxisAlignment crossAxisAlignment;
-  final double labelSize;
-  final Color labelColor;
+  final double? labelSize;
+  final Color? labelColor;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +34,7 @@ class AppTile extends StatelessWidget {
       crossAxisAlignment: crossAxisAlignment,
       children: [
         _buildLabelWithWeight(context),
-        if (trailing != null) _buildValueWithWeight()
+        if (trailing != null) _buildValueWithWeight(),
       ],
     );
   }
@@ -45,10 +42,7 @@ class AppTile extends StatelessWidget {
   Widget _buildLabelWithWeight(BuildContext context) {
     switch (weightType) {
       case ItemWeightType.labelBias || ItemWeightType.byRatio:
-        return Expanded(
-          flex: labelFlex,
-          child: _buildLabel(context),
-        );
+        return Expanded(flex: labelFlex, child: _buildLabel(context));
       default:
         return _buildLabel(context);
     }
@@ -66,19 +60,17 @@ class AppTile extends StatelessWidget {
   Widget _buildLabel(BuildContext context) {
     if (isBold) {
       return Text(
-          label,
-          style: TextTheme.of(context).bodyMedium?.copyWith(
-              fontSize: labelSize,
-              color: labelColor
-          )
+        label,
+        style: TextTheme.of(
+          context,
+        ).bodyMedium?.copyWith(fontSize: labelSize, color: labelColor),
       );
     } else {
       return Text(
-          label,
-          style: TextTheme.of(context).bodyLarge?.copyWith(
-              fontSize: labelSize,
-              color: labelColor
-          )
+        label,
+        style: TextTheme.of(
+          context,
+        ).bodyLarge?.copyWith(fontSize: labelSize, color: labelColor),
       );
     }
   }

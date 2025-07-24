@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:qr_generator_flutter/base/bloc_state_builder.dart';
+import 'package:qr_generator_flutter/core/languages.dart';
 import 'package:qr_generator_flutter/di/injection.dart';
 import 'package:qr_generator_flutter/navigation/app_navigator.dart';
 import 'package:qr_generator_flutter/navigation/app_routes.dart';
@@ -15,7 +16,7 @@ class HomeTab extends StatefulWidget {
   State<HomeTab> createState() => _HomeTabState();
 }
 
-class _HomeTabState extends State<HomeTab> {
+class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin{
   final cubit = getIt.get<HomeTabCubit>();
 
   final RefreshController _refreshController = RefreshController(
@@ -35,6 +36,7 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return CubitStateBuilder<HomeTabState>(
       cubit: cubit,
       builder:
@@ -43,13 +45,13 @@ class _HomeTabState extends State<HomeTab> {
                   ? Center(child: buildCreateQrButton())
                   : Column(
                     children: [
-                      buildCreateQrButton(),
                       Expanded(
                         child: SmartRefresher(
                           header: WaterDropHeader(),
                           onRefresh: _onRefresh,
                           controller: _refreshController,
                           child: ListView.builder(
+                            padding: EdgeInsets.all(8),
                             itemCount: state.listQr.length,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
@@ -75,7 +77,10 @@ class _HomeTabState extends State<HomeTab> {
       onPressed: () {
         NavController.pushNamed(QrCreateRoute());
       },
-      child: Text("Create QR"),
+      child: Text(Languages.translate.createQr),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

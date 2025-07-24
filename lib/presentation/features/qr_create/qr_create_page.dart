@@ -8,6 +8,7 @@ import 'package:qr_generator_flutter/presentation/features/qr_create/components/
 import 'package:qr_generator_flutter/presentation/features/qr_create/qr_create_cubit.dart';
 import 'package:qr_generator_flutter/presentation/features/qr_create/qr_create_state.dart';
 import 'package:qr_generator_flutter/presentation/widgets/app_dialog.dart';
+import 'package:qr_generator_flutter/presentation/widgets/app_scaffold.dart';
 import 'package:qr_generator_flutter/presentation/widgets/app_textfield.dart';
 import 'package:qr_generator_flutter/presentation/widgets/read_only_text_box.dart';
 
@@ -41,7 +42,7 @@ class _QrCreatePageState extends State<QrCreatePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AppScaffold(
       appBar: AppBar(
         title: Text(
           isCreate
@@ -49,121 +50,118 @@ class _QrCreatePageState extends State<QrCreatePage> {
               : Languages.translate.updateQr,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: CubitStateBuilder<QrCreateState>(
-          cubit: cubit,
-          builder: (stateContext, state) {
-            final qrModel = state.qrModel;
+      body: CubitStateBuilder<QrCreateState>(
+        cubit: cubit,
+        builder: (stateContext, state) {
+          final qrModel = state.qrModel;
 
-            return AnimatedContainer(
-              duration: const Duration(milliseconds: 400),
-              curve: Curves.easeInOut,
-              onEnd: () {
-                setState(() {
-                  isQrShow = true;
-                });
-              },
-              alignment:
-                  qrModel.content?.isNotEmpty ?? false
-                      ? Alignment.topCenter
-                      : Alignment.center,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (qrModel.type == QrType.clone && qrModel.originalContent?.isNotEmpty == true)
-                    ReadOnlyTextBox(
-                      text: qrModel.originalContent ?? '',
-                      margin: EdgeInsets.only(bottom: 8),
-                    ),
-                  _buildQrContentInput(),
+          return AnimatedContainer(
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.easeInOut,
+            onEnd: () {
+              setState(() {
+                isQrShow = true;
+              });
+            },
+            alignment:
+                qrModel.content?.isNotEmpty ?? false
+                    ? Alignment.topCenter
+                    : Alignment.center,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (qrModel.type == QrType.clone && qrModel.originalContent?.isNotEmpty == true)
+                  ReadOnlyTextBox(
+                    text: qrModel.originalContent ?? '',
+                    margin: EdgeInsets.only(bottom: 8),
+                  ),
+                _buildQrContentInput(),
 
-                  if (isQrShow)
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 8.0,
-                              ),
-                              child: Text(
-                                Languages.translate.preview,
-                                style: TextTheme.of(context).titleLarge,
-                              ),
+                if (isQrShow)
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 8.0,
                             ),
-
-                            Tooltip(
-                              message: qrModel.content ?? 'QR',
-                              child: QrImageView(
-                                data: qrModel.content ?? '',
-                                version: qrModel.version,
-                                eyeStyle: qrModel.eyeStyle.toLib(),
-                                dataModuleStyle: qrModel.moduleStyle.toLib(),
-                                embeddedImageEmitsError: true,
-                                size: MediaQuery.of(context).size.width * 0.7,
-                                backgroundColor: qrModel.backgroundColor,
-                              ),
+                            child: Text(
+                              Languages.translate.preview,
+                              style: TextTheme.of(context).titleLarge,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Flexible(
-                                  child: ElevatedButton(
-                                    onPressed: () async {
-                                      final customized = await customizeQr(
-                                        qrModel,
-                                      );
-                                      if (customized != null) {
-                                        cubit.updateQrStyle(customized);
-                                      }
-                                    },
-                                    child: Text(
-                                      '${Languages.translate.customize}...',
-                                    ),
+                          ),
+
+                          Tooltip(
+                            message: qrModel.content ?? 'QR',
+                            child: QrImageView(
+                              data: qrModel.content ?? '',
+                              version: qrModel.version,
+                              eyeStyle: qrModel.eyeStyle.toLib(),
+                              dataModuleStyle: qrModel.moduleStyle.toLib(),
+                              embeddedImageEmitsError: true,
+                              size: MediaQuery.of(context).size.width * 0.7,
+                              backgroundColor: qrModel.backgroundColor,
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Flexible(
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    final customized = await customizeQr(
+                                      qrModel,
+                                    );
+                                    if (customized != null) {
+                                      cubit.updateQrStyle(customized);
+                                    }
+                                  },
+                                  child: Text(
+                                    '${Languages.translate.customize}...',
                                   ),
                                 ),
-                                Flexible(
-                                  child: ElevatedButton(
-                                    onPressed: () => cubit.resetQrStyle(),
-                                    child: Text(Languages.translate.reset),
-                                  ),
+                              ),
+                              Flexible(
+                                child: ElevatedButton(
+                                  onPressed: () => cubit.resetQrStyle(),
+                                  child: Text(Languages.translate.reset),
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
+                  ),
 
-                  if (isQrShow)
-                    ElevatedButton(
-                      onPressed: () async {
-                        Navigator.pop(context);
-                        final result = await cubit.saveQr(widget.qrId);
-                        // if (result) {
-                        //   await Future.delayed(const Duration(milliseconds: 500));
-                        //   Navigator.pop(context);
-                        // }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        textStyle: Theme.of(context).textTheme.labelLarge,
-                        minimumSize: Size.fromHeight(
-                          56,
-                        ), // fromHeight use double.infinity as width and 40 is the height
+                if (isQrShow)
+                  ElevatedButton(
+                    onPressed: () async {
+                      Navigator.pop(context);
+                      final result = await cubit.saveQr(widget.qrId);
+                      // if (result) {
+                      //   await Future.delayed(const Duration(milliseconds: 500));
+                      //   Navigator.pop(context);
+                      // }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
                       ),
-                      child: Text(Languages.translate.save),
+                      textStyle: Theme.of(context).textTheme.labelLarge,
+                      minimumSize: Size.fromHeight(
+                        56,
+                      ), // fromHeight use double.infinity as width and 40 is the height
                     ),
-                ],
-              ),
-            );
-          },
-        ),
+                    child: Text(Languages.translate.save),
+                  ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
@@ -196,7 +194,7 @@ class _QrCreatePageState extends State<QrCreatePage> {
       context: context,
       builder:
           (_) => AppDialog(
-            title: "Customization",
+            title: Languages.translate.qrCustomizations,
             body: QrCustomization(
               initModel: _current,
               onChanged: (model) {

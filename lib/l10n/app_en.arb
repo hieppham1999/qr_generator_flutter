@@ -9,11 +9,19 @@
   "reset": "Reset",
   "customize": "Customize",
   "preview": "Preview",
-  "createQr": "Qr Create",
-  "updateQr": "Qr Update",
+  "createQr": "Create Qr",
+  "updateQr": "Update Qr",
   "english": "English",
   "english_native": "English",
   "vietnamese": "Vietnamese",
-  "vietnamese_native": "Tiếng Việt"
-
+  "vietnamese_native": "Tiếng Việt",
+  "language": "Language",
+  "settings": "Settings",
+  "darkMode": "Dark Mode Setting",
+  "themeColor": "Theme Color",
+  "qrCustomizations": "QR Customizations",
+  "qrSaved": "QR Saved!",
+  "copiedToClipboard": "Copied to clipboard!",
+  "scannedQrList": "Scanned QR Codes",
+  "emptyQrList": "No scanned QR codes yet."
 }

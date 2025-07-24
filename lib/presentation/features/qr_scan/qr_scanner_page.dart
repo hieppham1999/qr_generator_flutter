@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_generator_flutter/base/bloc_state_builder.dart';
+import 'package:qr_generator_flutter/core/languages.dart';
 import 'package:qr_generator_flutter/data/model/qr_model/qr_model.dart';
 import 'package:qr_generator_flutter/data/model/qr_scan_result/qr_scan_result.dart';
 import 'package:qr_generator_flutter/di/injection.dart';
@@ -116,12 +117,12 @@ class _QrScannerPageState extends State<QrScannerPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Scanned QR Codes',
+                Languages.translate.scannedQrList,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 16),
               if (qrList.isEmpty)
-                const Text('No scanned QR codes yet.')
+                Text(Languages.translate.emptyQrList)
               else
                 ListView.separated(
                   shrinkWrap: true,
@@ -140,8 +141,8 @@ class _QrScannerPageState extends State<QrScannerPage> {
                                 ClipboardData(text: qr.barcode.rawValue ?? ''),
                               );
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Copied to clipboard'),
+                                SnackBar(
+                                  content: Text(Languages.translate.copiedToClipboard),
                                 ),
                               );
                             },
@@ -162,7 +163,7 @@ class _QrScannerPageState extends State<QrScannerPage> {
                             onPressed: () {
                               cubit.saveQr(qr.barcode.rawValue);
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Qr saved!')),
+                                SnackBar(content: Text(Languages.translate.qrSaved)),
                               );
                             },
                           ),

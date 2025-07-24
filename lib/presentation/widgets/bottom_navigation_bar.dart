@@ -1,6 +1,7 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_generator_flutter/core/languages.dart';
+import 'package:qr_generator_flutter/utils/app_logger.dart';
 import 'package:qr_generator_flutter/utils/functions.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
@@ -11,13 +12,16 @@ class AppBottomNavigationBar extends StatelessWidget {
   });
 
   final int currentIndex;
-  final ValueChanged<int> onItemTapped;
+  final void Function(int currentIndex, int targetIndex) onItemTapped;
 
   @override
   Widget build(BuildContext context) {
     return ConvexAppBar(
       initialActiveIndex: currentIndex,
-      onTap: onItemTapped,
+      onTap: (targetIndex) {
+        onItemTapped(currentIndex, targetIndex);
+      },
+      cornerRadius: 12,
       height: 60,
       style: TabStyle.fixedCircle,
       activeColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor?.inverted,
@@ -37,8 +41,8 @@ class AppBottomNavigationBar extends StatelessWidget {
               'Scan QR', // Label is optional, can be empty string for just icon
         ),
         const TabItem(
-          icon: Icons.settings,
-          title: 'Settings',
+          icon: Icons.person,
+          title: 'Profile',
         ),
       ],
     );

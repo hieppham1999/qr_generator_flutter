@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:qr_generator_flutter/base/bloc_state_builder.dart';
+import 'package:qr_generator_flutter/core/languages.dart';
 import 'package:qr_generator_flutter/data/model/app_language/app_language.dart';
 import 'package:qr_generator_flutter/data/model/app_settings/app_settings.dart';
 import 'package:qr_generator_flutter/di/injection.dart';
 import 'package:qr_generator_flutter/presentation/features/app_setting/app_setting_cubit.dart';
 import 'package:qr_generator_flutter/presentation/widgets/app_dropdown.dart';
+import 'package:qr_generator_flutter/presentation/widgets/app_scaffold.dart';
 import 'package:qr_generator_flutter/presentation/widgets/app_tile.dart';
 import 'package:qr_generator_flutter/presentation/widgets/color_picker_dot.dart';
 
@@ -21,8 +23,11 @@ class _AppSettingPageState extends State<AppSettingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
+    return AppScaffold(
+      appBar: AppBar(
+        title: Text(Languages.translate.settings),
+        centerTitle: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: CubitStateBuilder<AppSettings>(
@@ -31,7 +36,7 @@ class _AppSettingPageState extends State<AppSettingPage> {
             return Column(
               children: [
                 AppTile(
-                  label: 'Language',
+                  label: Languages.translate.language,
                   trailing: AppDropdown<AppLanguage>(
                     items: AppLanguage.values,
                     value: state.language,
@@ -48,7 +53,7 @@ class _AppSettingPageState extends State<AppSettingPage> {
                 SizedBox(height: 8),
 
                 AppTile(
-                  label: 'Theme mode',
+                  label: Languages.translate.darkMode,
                   trailing: AppDropdown<ThemeMode>(
                     items: ThemeMode.values,
                     value: state.themeMode,
@@ -65,7 +70,7 @@ class _AppSettingPageState extends State<AppSettingPage> {
                 SizedBox(height: 8),
 
                 AppTile(
-                  label: 'Theme color',
+                  label: Languages.translate.themeColor,
                   trailing: ColorPickerDot(
                     selectedColor: state.colorSchemeSeed,
                     onChanged: (color) {
