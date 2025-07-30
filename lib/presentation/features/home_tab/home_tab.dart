@@ -47,22 +47,22 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin{
                     children: [
                       Expanded(
                         child: SmartRefresher(
-                          header: WaterDropHeader(),
+                          header: WaterDropHeader(
+                            waterDropColor: Theme.of(context).colorScheme.primaryContainer,
+                          ),
                           onRefresh: _onRefresh,
                           controller: _refreshController,
-                          child: ListView.builder(
-                            padding: EdgeInsets.all(8),
+                          child: ListView.separated(
+                            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                             itemCount: state.listQr.length,
                             shrinkWrap: true,
+                            separatorBuilder: (_, index) {
+                              return SizedBox(height: 12,);
+                            },
                             itemBuilder: (context, index) {
                               final item = state.listQr[index];
 
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  QrCard(qr: item),
-                                ],
-                              );
+                              return QrCard(qr: item);
                             },
                           ),
                         ),

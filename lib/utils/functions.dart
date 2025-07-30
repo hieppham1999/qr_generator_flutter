@@ -24,13 +24,17 @@ extension ColorGenerate on Color {
   Color get remarkable {
     final hsl = HSLColor.fromColor(this);
 
-    final isLight = hsl.lightness > 0.5;
-
     // Flip lightness to increase contrast
-    final newLightness = isLight
+    final newLightness = isLightColor
         ? (hsl.lightness - 0.4).clamp(0.0, 1.0)
         : (hsl.lightness + 0.4).clamp(0.0, 1.0);
 
     return hsl.withLightness(newLightness).toColor();
+  }
+
+  bool get isLightColor{
+    final hsl = HSLColor.fromColor(this);
+    print(hsl.lightness);
+    return hsl.lightness > 0.5;
   }
 }

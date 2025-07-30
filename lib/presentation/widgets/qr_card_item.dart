@@ -8,38 +8,69 @@ import 'package:qr_generator_flutter/presentation/viewmodels/qr_view_data.dart';
 
 class QrCard extends StatelessWidget {
   final QrViewData qr;
+  final BorderRadius borderRadius;
 
-  const QrCard({required this.qr});
+  const QrCard({
+    super.key,
+    required this.qr,
+    this.borderRadius = const BorderRadius.all(Radius.circular(12)),
+  });
 
   @override
   Widget build(BuildContext context) {
     final content = qr.model;
 
-    return ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-      child: Card(
-        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        // color: Theme.of(context).,
-        elevation: 2,
-        child: ListTile(
-          title: Text(content.content ?? ''),
-          subtitle: Text('Updated: ${DateFormat.yMd().format(qr.updatedAt)}'),
-          onTap: () {
-            NavController.pushNamed(QrCreateRoute(id: qr.id, qrModel: qr.model.copyWith(type: QrType.clone)));
-          },
-          trailing: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: QrImageView(
-              data: qr.model.content ?? '',
-              version: qr.model.version,
-              eyeStyle: qr.model.eyeStyle.toLib(),
-              dataModuleStyle: qr.model.moduleStyle.toLib(),
-              embeddedImageEmitsError: true,
-              size: 50,
-              backgroundColor: qr.model.backgroundColor,
-            ),
+    return InkWell(
+      onTap: () {
+        NavController.pushNamed(
+          QrCreateRoute(
+            id: qr.id,
+            qrModel: qr.model.copyWith(type: QrType.clone),
           ),
+        );
+      },
+      borderRadius: borderRadius,
+      child: Ink(
+        padding: const EdgeInsets.all(8),
+        height: MediaQuery.of(context).size.width * 0.22,
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+          borderRadius: borderRadius,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withValues(alpha: 0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: QrImageView(
+                data: qr.model.content ?? '',
+                version: qr.model.version,
+                eyeStyle: qr.model.eyeStyle.toLib(),
+                dataModuleStyle: qr.model.moduleStyle.toLib(),
+                embeddedImageEmitsError: true,
+                // size: MediaQuery.of(context).size.width * 0.2,
+                backgroundColor: qr.model.backgroundColor,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                // mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(content.content ?? ''),
+                  Text('Updated: ${DateFormat.yMd().format(qr.updatedAt)}'),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

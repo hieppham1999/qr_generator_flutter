@@ -7,7 +7,8 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
-      colorSchemeSeed: seedColor ?? AppColors.defaultThemeColor,
+      // colorSchemeSeed: seedColor ?? AppColors.defaultThemeColor,
+      primaryColor: seedColor ?? AppColors.defaultThemeColor,
       textTheme: appTextTheme,
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: seedColor,
@@ -19,7 +20,8 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
-      colorSchemeSeed: seedColor ?? AppColors.defaultThemeColor,
+      // colorSchemeSeed: seedColor ?? AppColors.defaultThemeColor,
+      primaryColor: seedColor ?? AppColors.defaultThemeColor,
       textTheme: appTextTheme,
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: seedColor,

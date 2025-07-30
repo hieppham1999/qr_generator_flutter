@@ -7,6 +7,7 @@ import 'package:qr_generator_flutter/di/injection.dart';
 import 'package:qr_generator_flutter/presentation/features/qr_create/components/qr_customization.dart';
 import 'package:qr_generator_flutter/presentation/features/qr_create/qr_create_cubit.dart';
 import 'package:qr_generator_flutter/presentation/features/qr_create/qr_create_state.dart';
+import 'package:qr_generator_flutter/presentation/widgets/app_button.dart';
 import 'package:qr_generator_flutter/presentation/widgets/app_dialog.dart';
 import 'package:qr_generator_flutter/presentation/widgets/app_scaffold.dart';
 import 'package:qr_generator_flutter/presentation/widgets/app_textfield.dart';
@@ -106,6 +107,7 @@ class _QrCreatePageState extends State<QrCreatePage> {
                               backgroundColor: qrModel.backgroundColor,
                             ),
                           ),
+                          SizedBox(height: 16),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -124,6 +126,7 @@ class _QrCreatePageState extends State<QrCreatePage> {
                                   ),
                                 ),
                               ),
+                              SizedBox(width: 8),
                               Flexible(
                                 child: ElevatedButton(
                                   onPressed: () => cubit.resetQrStyle(),
@@ -138,7 +141,7 @@ class _QrCreatePageState extends State<QrCreatePage> {
                   ),
 
                 if (isQrShow)
-                  ElevatedButton(
+                  AppElevatedButton(
                     onPressed: () async {
                       Navigator.pop(context);
                       final result = await cubit.saveQr(widget.qrId);
@@ -147,16 +150,7 @@ class _QrCreatePageState extends State<QrCreatePage> {
                       //   Navigator.pop(context);
                       // }
                     },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      textStyle: Theme.of(context).textTheme.labelLarge,
-                      minimumSize: Size.fromHeight(
-                        56,
-                      ), // fromHeight use double.infinity as width and 40 is the height
-                    ),
-                    child: Text(Languages.translate.save),
+                    text: Languages.translate.save,
                   ),
               ],
             ),
